@@ -6,6 +6,7 @@ Folder "client"
 - cd ios, lalu jalankan "pod install"
 - cd ..
 - react-native run-ios
+- documentation : https://facebook.github.io/react-native/docs/getting-started
 
 Folder "api"
 - docker-compose build (build)
@@ -13,3 +14,7 @@ Folder "api"
 - docker-compose down (stop)
 - docker ps (check docker run)
 - docker exec -it [NAME_CONTAINER] bash (Masuk ke terminal container)
+
+Cara install react-native :
+- npm install -g react-native-cli
+- react-native init client
