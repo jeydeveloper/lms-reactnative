@@ -1,6 +1,10 @@
 // get dependencies
 const express = require('express');
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const cors = require('cors');
+const errorHandler = require('errorhandler');
+const path = require('path');
 
 const app = express();
 
