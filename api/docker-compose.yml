@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  server:
+    build: ./server
+    environment:
+      - MONGO_URI=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@${MONGO_URI}
+      - PORT=${PORT}
+    ports:
+      - ${PORT}:${PORT}
+    volumes:
+      - ./server/src:/app/server/src
+    command: npm run dev
+    links:
+      - db
+    restart: always
+  db:
+    image: mongo
+    ports:
+      - ${MONGO_PORT}:${MONGO_PORT}
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
