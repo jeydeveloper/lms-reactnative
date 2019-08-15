@@ -38,6 +38,20 @@ exports.login = (req, res, next) => {
     }) (req, res, next);
 };
 
+//Retrieve current user
+exports.current = (req, res, next) => {
+    const { payload: { id } } = req;
+
+    return User.findById(id)
+        .then((user) => {
+          if(!user) {
+            return res.sendStatus(400);
+          }
+
+          return res.json({ user: user.toAuthJSON() });
+        });
+};
+
 //Create new User
 exports.create = (req, res, next) => {
     const { body: { user } } = req;

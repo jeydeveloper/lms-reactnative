@@ -11,6 +11,9 @@ module.exports = (app) => {
     // Retrieve all Users
     app.get('/users', auth.required, users.findAll);
 
+    // Retrieve all Users
+    app.get('/current', auth.required, users.current);
+
     // Retrieve a single User with userId
     app.get('/users/:userId', auth.required, users.findOne);
 
