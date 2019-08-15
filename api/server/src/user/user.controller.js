@@ -3,7 +3,7 @@ const passport = require('passport');
 const auth = require('../auth/auth.routes.js');
 
 //User login
-exports.login = (req, res) => {
+exports.login = (req, res, next) => {
     const { body: { user } } = req;
 
     if(!user.email) {
@@ -34,12 +34,12 @@ exports.login = (req, res) => {
           return res.json({ user: user.toAuthJSON() });
         }
 
-        return status(400).info;
-    })(req, res, next);
+        return res.status(422).json(info);
+    }) (req, res, next);
 };
 
 //Create new User
-exports.create = (req, res) => {
+exports.create = (req, res, next) => {
     const { body: { user } } = req;
 
     if(!user.email) {
@@ -67,7 +67,7 @@ exports.create = (req, res) => {
 };
 
 // Retrieve all users from the database.
-exports.findAll = (req, res) => {
+exports.findAll = (req, res, next) => {
     User.find()
     .then(users => {
         res.send(users);
@@ -79,7 +79,7 @@ exports.findAll = (req, res) => {
 };
 
 // Find a single user with a userId
-exports.findOne = (req, res) => {
+exports.findOne = (req, res, next) => {
     User.findById(req.params.userId)
     .then(user => {
         if(!user) {
@@ -101,7 +101,7 @@ exports.findOne = (req, res) => {
 };
 
 // Update a user
-exports.update = (req, res) => {
+exports.update = (req, res, next) => {
     // Validate Request
     if(!req.body) {
         return res.status(400).send({
@@ -134,7 +134,7 @@ exports.update = (req, res) => {
 };
 
 // Delete a note with the specified noteId in the request
-exports.delete = (req, res) => {
+exports.delete = (req, res, next) => {
     User.findByIdAndRemove(req.params.userId)
     .then(user => {
         if(!user) {
