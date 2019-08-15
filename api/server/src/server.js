@@ -1,47 +1,71 @@
-// get dependencies
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const cors = require('cors');
+const mongoose = require('mongoose');
 const errorHandler = require('errorhandler');
-const path = require('path');
 
+//Configure mongoose's promise to global promise
+mongoose.promise = global.Promise;
+
+//Configure isProduction variable
+const isProduction = process.env.NODE_ENV === 'production';
+
+//Initiate our app
 const app = express();
 
-// parse requests
-app.use(bodyParser.urlencoded({ extended: true }));
+//Configure our app
+app.use(cors());
+app.use(require('morgan')('dev'));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({ secret: 'passport-tutorial', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false }));
 
-//Enable CORS for all HTTP methods
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
+if(!isProduction) {
+  app.use(errorHandler());
+}
 
-// Configuring the database
-const config = require('./config.js');
-const mongoose = require('mongoose');
+const config = require('./config/config.js');
+
+//Configure Mongoose
+mongoose.connect(config.url);
+mongoose.set('debug', true);
 
 require('./user/user.routes.js')(app);
 require('./product/product.routes.js')(app);
 
-mongoose.Promise = global.Promise;
-
-// Connecting to the database
-mongoose.connect(config.url, {
-    useNewUrlParser: true
-}).then(() => {
-    console.log("Successfully connected to the database");    
-}).catch(err => {
-    console.log('Could not connect to the database. Exiting now...', err);
-    process.exit();
-});
+require('./config/passport.js');
 
 // default route
 app.get('/', (req, res) => {
-    res.json({"message": "Welcome to ZeptoBook Product app"});
+    res.json({"message": "Welcome to API LMS v1.0"});
+});
+
+//Error handlers & middlewares
+if(!isProduction) {
+  app.use((err, req, res, next) => {
+    res.status(err.status || 500);
+
+    res.json({
+      errors: {
+        message: err.message,
+        error: err,
+      },
+    });
+  });
+}
+
+app.use((err, req, res, next) => {
+  res.status(err.status || 500);
+
+  res.json({
+    errors: {
+      message: err.message,
+      error: {},
+    },
+  });
 });
 
 // listen on port 3000

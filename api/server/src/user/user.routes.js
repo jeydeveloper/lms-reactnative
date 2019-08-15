@@ -1,18 +1,22 @@
 module.exports = (app) => {
+    const auth = require('../auth/auth.routes.js');
     const users = require('./user.controller.js');
 
-    // Create a new Product
-    app.post('/users', users.create);
+    // User login
+    app.post('/login', auth.optional, users.login);
 
-    // Retrieve all Products
-    app.get('/users', users.findAll);
+    // Create a new User
+    app.post('/users', auth.optional, users.create);
 
-    // Retrieve a single Product with userId
-    app.get('/users/:userId', users.findOne);
+    // Retrieve all Users
+    app.get('/users', auth.required, users.findAll);
 
-    // Update a Note with userId
-    app.put('/users/:userId', users.update);
+    // Retrieve a single User with userId
+    app.get('/users/:userId', auth.required, users.findOne);
 
-    // Delete a Note with userId
-    app.delete('/users/:userId', users.delete);
+    // Update a User with userId
+    app.put('/users/:userId', auth.required, users.update);
+
+    // Delete a User with userId
+    app.delete('/users/:userId', auth.required, users.delete);
 }

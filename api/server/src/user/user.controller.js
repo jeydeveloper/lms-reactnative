@@ -1,30 +1,69 @@
 const User = require('./user.model.js');
+const passport = require('passport');
+const auth = require('../auth/auth.routes.js');
 
-//Create new User
-exports.create = (req, res) => {
-    // Request validation
-    if(!req.body) {
-        
-        return res.status(400).send({
-            message: "User content can not be empty"
+//User login
+exports.login = (req, res) => {
+    const { body: { user } } = req;
+
+    if(!user.email) {
+        return res.status(422).json({
+          errors: {
+            email: 'is required',
+          },
         });
     }
 
-    // Create a User
-    const user = new User({
-        name: req.body.name || "No user name", 
-        email: req.body.email
-    });
-
-    // Save User in the database
-    user.save()
-    .then(data => {
-        res.send(data);
-    }).catch(err => {
-        res.status(500).send({
-            message: err.message || "Something wrong while creating the user."
+    if(!user.password) {
+        return res.status(422).json({
+          errors: {
+            password: 'is required',
+          },
         });
-    });
+    }
+
+    return passport.authenticate('local', { session: false }, (err, passportUser, info) => {
+        if(err) {
+          return next(err);
+        }
+
+        if(passportUser) {
+          const user = passportUser;
+          user.token = passportUser.generateJWT();
+
+          return res.json({ user: user.toAuthJSON() });
+        }
+
+        return status(400).info;
+    })(req, res, next);
+};
+
+//Create new User
+exports.create = (req, res) => {
+    const { body: { user } } = req;
+
+    if(!user.email) {
+        return res.status(422).json({
+          errors: {
+            email: 'is required',
+          },
+        });
+    }
+
+    if(!user.password) {
+        return res.status(422).json({
+          errors: {
+            password: 'is required',
+          },
+        });
+    }
+
+    const finalUser = new User(user);
+
+    finalUser.setPassword(user.password);
+
+    return finalUser.save()
+        .then(() => res.json({ user: finalUser.toAuthJSON() }));
 };
 
 // Retrieve all users from the database.
