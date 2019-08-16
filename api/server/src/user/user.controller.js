@@ -1,6 +1,6 @@
 const User = require('./user.model.js');
 const passport = require('passport');
-const auth = require('../auth/auth.routes.js');
+const auth = require('../library/auth.js');
 
 //User login
 exports.login = (req, res, next) => {

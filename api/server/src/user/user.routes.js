@@ -1,5 +1,5 @@
 module.exports = (app) => {
-    const auth = require('../auth/auth.routes.js');
+    const auth = require('../library/auth.js');
     const users = require('./user.controller.js');
 
     // User login
