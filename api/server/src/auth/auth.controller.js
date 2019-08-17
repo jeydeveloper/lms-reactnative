@@ -45,14 +45,7 @@ exports.logout = (req, res, next) => {
 
 //Retrieve current user
 exports.current = (req, res, next) => {
-    return User.findById(req.user._id)
-        .then((user) => {
-          if(!user) {
-            return res.sendStatus(400);
-          }
-
-          return res.json({ user: user.toAuthJSON() });
-        });
+    return res.json({ user: req.user.toAuthJSON() });
 };
 
 //Retrieve current user from token
