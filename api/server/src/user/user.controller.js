@@ -74,8 +74,13 @@ exports.update = (req, res, next) => {
 
     // Find and update user with the request body
     User.findByIdAndUpdate(req.params.userId, {
-        name: req.body.name || "No user name", 
-        email: req.body.email
+        firstname: req.body.firstname, 
+        lastname: req.body.lastname, 
+        loginname: req.body.loginname, 
+        role: req.body.role || "No Role", 
+        status: req.body.status, 
+        email: req.body.email, 
+        attribute: req.body.attribute
     }, {new: true})
     .then(user => {
         if(!user) {

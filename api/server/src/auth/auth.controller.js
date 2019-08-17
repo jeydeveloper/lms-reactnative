@@ -39,16 +39,8 @@ exports.login = (req, res, next) => {
 
 //User logout
 exports.logout = (req, res, next) => {
-    const { payload: { id } } = req;
-
-    return User.findById(id)
-        .then((user) => {
-          if(!user) {
-            return res.sendStatus(400);
-          }
-
-          return res.json({ user: user.toAuthJSON() });
-        });
+    req.logout();
+	res.redirect('/');
 };
 
 //Retrieve current user
