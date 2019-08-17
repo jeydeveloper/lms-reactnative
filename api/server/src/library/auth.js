@@ -9,6 +9,14 @@ const getTokenFromHeaders = (req) => {
   return null;
 };
 
+const isLoggedIn = (req, res, next) => {
+  if(req.isAuthenticated()){
+    return next();
+  } else {
+    res.redirect('/');
+  }
+};
+
 const auth = {
   required: jwt({
     secret: 'secret',
@@ -21,6 +29,7 @@ const auth = {
     getToken: getTokenFromHeaders,
     credentialsRequired: false,
   }),
+  isLoggedIn: isLoggedIn,
 };
 
 module.exports = auth;

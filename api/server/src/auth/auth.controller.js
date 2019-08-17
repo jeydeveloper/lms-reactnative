@@ -21,7 +21,7 @@ exports.login = (req, res, next) => {
         });
     }
 
-    return passport.authenticate('local', { session: false }, (err, passportUser, info) => {
+    return passport.authenticate('login', { session: false }, (err, passportUser, info) => {
         if(err) {
           return next(err);
         }
@@ -45,6 +45,18 @@ exports.logout = (req, res, next) => {
 
 //Retrieve current user
 exports.current = (req, res, next) => {
+    return User.findById(req.user._id)
+        .then((user) => {
+          if(!user) {
+            return res.sendStatus(400);
+          }
+
+          return res.json({ user: user.toAuthJSON() });
+        });
+};
+
+//Retrieve current user from token
+exports.currentfromtoken = (req, res, next) => {
     const { payload: { id } } = req;
 
     return User.findById(id)

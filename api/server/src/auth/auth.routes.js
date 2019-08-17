@@ -1,20 +1,20 @@
 module.exports = (app) => {
     const auth = require('../library/auth.js');
     const auths = require('./auth.controller.js');
+    const passport = require('passport');
 
-    function isLoggedIn(request, response, next) {
-	    if (request.isAuthenticated()) {
-	        return next();
-	    }
-	    response.redirect('/');
-	}
+    app.use(passport.initialize());
+	app.use(passport.session());
 
     // Auth login
-    app.post('/auth/login', auth.optional, auths.login);
+    app.post('/auth/login', passport.authenticate('login', {failWithError: true}), auths.login);
 
     // Auth logout
-    app.get('/auth/logout', auth.required, auths.logout);
+    app.get('/auth/logout', auth.isLoggedIn, auths.logout);
 
     // Auth current
-    app.get('/auth/current', isLoggedIn, auths.current);
+    app.get('/auth/current', auth.isLoggedIn, auths.current);
+
+    // Auth current from token
+    app.get('/auth/current-from-token', auth.required, auths.currentfromtoken);
 }
