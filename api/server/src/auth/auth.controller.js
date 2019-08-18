@@ -1,11 +1,6 @@
 const User = require('../user/user.model.js');
 const passport = require('passport');
 
-//User login
-exports.login = (req, res, next) => {
-    return res.json({ user: req.user.toAuthJSON() });
-};
-
 //User logout
 exports.logout = (req, res, next) => {
     req.logout();
