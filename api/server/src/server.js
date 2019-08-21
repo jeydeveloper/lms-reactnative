@@ -30,7 +30,7 @@ if(!isProduction) {
 const config = require('./config/config.js');
 
 //Configure Mongoose
-mongoose.connect(config.url);
+mongoose.connect(config.url).catch(err => console.log(err)); 
 mongoose.set('debug', true);
 
 require('./user/user.routes.js')(app);

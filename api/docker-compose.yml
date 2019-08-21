@@ -6,18 +6,20 @@ services:
     environment:
       - MONGO_URI=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@${MONGO_URI}
       - PORT=${PORT}
+      - WAIT_HOSTS=db:27017
     ports:
       - ${PORT}:${PORT}
     volumes:
       - ./server/src:/app/server/src
-    command: npm run dev
-    links:
+    depends_on:
       - db
     restart: always
   db:
     image: mongo
     ports:
       - ${MONGO_PORT}:${MONGO_PORT}
+    volumes:
+      - ./data_mongo:/data/db
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
