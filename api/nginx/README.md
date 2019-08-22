@@ -1,0 +1,2 @@
+- Create empty folder "cache"
+- Create empty file "error.log"
