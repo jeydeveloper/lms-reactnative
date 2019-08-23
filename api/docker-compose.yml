@@ -18,6 +18,7 @@ services:
       - MONGO_URI=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@${MONGO_URI}
       - PORT=${PORT}
       - WAIT_HOSTS=db:27017
+      - NODE_ENV=development
     ports:
       - ${PORT}:${PORT}
     volumes:

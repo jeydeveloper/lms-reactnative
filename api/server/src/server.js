@@ -9,9 +9,6 @@ const errorHandler = require('errorhandler');
 //Configure mongoose's promise to global promise
 mongoose.promise = global.Promise;
 
-//Configure isProduction variable
-const isProduction = process.env.NODE_ENV === 'production';
-
 //Initiate our app
 const app = express();
 
@@ -21,13 +18,17 @@ app.use(require('morgan')('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({ secret: 'passport-tutorial', cookie: { maxAge: 3600000 }, resave: false, saveUninitialized: false })); //cookie for 1 hour (miliseconds)
+app.set('trust proxy', 1);
+app.use(session({ secret: 'passport-tutorial', cookie: { maxAge: 3600000 }, resave: false, saveUninitialized: true })); //cookie for 1 hour (miliseconds)
+
+const config = require('./config/config.js');
+
+//Configure isProduction variable
+const isProduction = config.node_env === 'production';
 
 if(!isProduction) {
   app.use(errorHandler());
 }
-
-const config = require('./config/config.js');
 
 //Configure Mongoose
 mongoose.connect(config.url).catch(err => console.log(err)); 
