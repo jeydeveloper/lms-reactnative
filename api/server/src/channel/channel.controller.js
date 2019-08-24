@@ -1,108 +1,121 @@
-const Attribute = require('./attribute.model.js');
+const Channel = require('./channel.model.js');
 
-//Create new Attribute
+//Create new Channel
 exports.create = (req, res, next) => {
-    const { body: { attribute } } = req;
+    const { body: { channel } } = req;
 
-    if(!attribute.name) {
+    if(!channel.title) {
         return res.status(422).json({
           errors: {
-            name: 'is required',
+            title: 'is required',
           },
         });
     }
 
-    const finalAttribute = new Attribute(attribute);
+    const finalChannel = new Channel(channel);
 
-    return finalAttribute.save()
-        .then(() => res.json({ attribute: finalAttribute.toJSON() }));
+    return finalChannel.save()
+        .then(() => res.json({ channel: finalChannel.toJSON() }))
+        .catch(err => {
+            if(err.name === 'ValidationError') {
+                return res.status(400).send({
+                    message: err.message
+                });                
+            }
+            return res.status(500).send({
+                message: "Something wrong add channel"
+            });
+        });
 };
 
-// Retrieve all attributes from the database.
+// Retrieve all channels from the database.
 exports.findAll = (req, res, next) => {
-    Attribute.find()
-    .then(attributes => {
-        res.send(attributes);
+    Channel.find()
+    .then(channels => {
+        res.send(channels);
     }).catch(err => {
         res.status(500).send({
-            message: err.message || "Something wrong while retrieving attributes."
+            message: err.message || "Something wrong while retrieving channels."
         });
     });
 };
 
-// Find a single attribute with a attributeId
+// Find a single channel with a channelId
 exports.findOne = (req, res, next) => {
-    Attribute.findById(req.params.attributeId)
-    .then(attribute => {
-        if(!attribute) {
+    Channel.findById(req.params.channelId)
+    .then(channel => {
+        if(!channel) {
             return res.status(404).send({
-                message: "Attribute not found with id " + req.params.attributeId
+                message: "Channel not found with id " + req.params.channelId
             });            
         }
-        res.send(attribute);
+        res.send(channel);
     }).catch(err => {
         if(err.kind === 'ObjectId') {
             return res.status(404).send({
-                message: "Attribute not found with id " + req.params.attributeId
+                message: "Channel not found with id " + req.params.channelId
             });                
         }
         return res.status(500).send({
-            message: "Something wrong retrieving attribute with id " + req.params.attributeId
+            message: "Something wrong retrieving channel with id " + req.params.channelId
         });
     });
 };
 
-// Update a attribute
+// Update a channel
 exports.update = (req, res, next) => {
     // Validate Request
     if(!req.body) {
         return res.status(400).send({
-            message: "Attribute content can not be empty"
+            message: "Channel content can not be empty"
         });
     }
 
-    // Find and update attribute with the request body
-    Attribute.findByIdAndUpdate(req.params.attributeId, {
-        name: req.body.name, 
-        value: req.body.value
+    // Find and update channel with the request body
+    Channel.findByIdAndUpdate(req.params.channelId, {
+        title: req.body.title, 
+        description: req.body.description, 
+        image: req.body.image, 
+        subject: req.body.subject, 
+        content: req.body.content
     }, {new: true})
-    .then(attribute => {
-        if(!attribute) {
+    .then(channel => {
+        if(!channel) {
             return res.status(404).send({
-                message: "Attribute not found with id " + req.params.attributeId
+                message: "Channel not found with id " + req.params.channelId
             });
         }
-        res.send(attribute);
+        res.send(channel);
     }).catch(err => {
         if(err.kind === 'ObjectId') {
             return res.status(404).send({
-                message: "Attribute not found with id " + req.params.attributeId
+                message: "Channel not found with id " + req.params.channelId
             });                
         }
         return res.status(500).send({
-            message: "Something wrong updating note with id " + req.params.attributeId
+            message: "Something wrong updating note with id " + req.params.channelId
         });
     });
 };
 
 // Delete a note with the specified noteId in the request
 exports.delete = (req, res, next) => {
-    Attribute.findByIdAndRemove(req.params.attributeId)
-    .then(attribute => {
-        if(!attribute) {
+    Channel.findByIdAndRemove(req.params.channelId)
+    .then(channel => {
+        if(!channel) {
             return res.status(404).send({
-                message: "Attribute not found with id " + req.params.attributeId
+                message: "Channel not found with id " + req.params.channelId
             });
         }
-        res.send({message: "Attribute deleted successfully!"});
+        res.send({message: "Channel deleted successfully!"});
     }).catch(err => {
-        if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+        if(err.kind === 'ObjectId' || err.title === 'NotFound') {
             return res.status(404).send({
-                message: "Attribute not found with id " + req.params.attributeId
+                message: "Channel not found with id " + req.params.channelId
             });                
         }
         return res.status(500).send({
-            message: "Could not delete attribute with id " + req.params.attributeId
+            message: "Could not delete channel with id " + req.params.channelId
         });
     });
 };
