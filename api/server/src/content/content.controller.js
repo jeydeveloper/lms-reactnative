@@ -1,108 +1,134 @@
-const Attribute = require('./attribute.model.js');
+const Content = require('./content.model.js');
 
-//Create new Attribute
+//Create new Content
 exports.create = (req, res, next) => {
-    const { body: { attribute } } = req;
+    const { body: { content } } = req;
 
-    if(!attribute.name) {
+    if(!content.title) {
         return res.status(422).json({
           errors: {
-            name: 'is required',
+            title: 'is required',
           },
         });
     }
 
-    const finalAttribute = new Attribute(attribute);
+    const finalContent = new Content(content);
 
-    return finalAttribute.save()
-        .then(() => res.json({ attribute: finalAttribute.toJSON() }));
+    return finalContent.save()
+        .then(() => res.json({ content: finalContent.toJSON() }))
+        .catch(err => {
+            if(err.name === 'ValidationError') {
+                return res.status(400).send({
+                    message: err.message
+                });                
+            }
+            return res.status(500).send({
+                message: "Something wrong add content"
+            });
+        });
 };
 
-// Retrieve all attributes from the database.
+// Retrieve all contents from the database.
 exports.findAll = (req, res, next) => {
-    Attribute.find()
-    .then(attributes => {
-        res.send(attributes);
+    Content.find()
+    .then(contents => {
+        res.send(contents);
     }).catch(err => {
         res.status(500).send({
-            message: err.message || "Something wrong while retrieving attributes."
+            message: err.message || "Something wrong while retrieving contents."
         });
     });
 };
 
-// Find a single attribute with a attributeId
+// Find a single content with a contentId
 exports.findOne = (req, res, next) => {
-    Attribute.findById(req.params.attributeId)
-    .then(attribute => {
-        if(!attribute) {
+    Content.findById(req.params.contentId)
+    .then(content => {
+        if(!content) {
             return res.status(404).send({
-                message: "Attribute not found with id " + req.params.attributeId
+                message: "Content not found with id " + req.params.contentId
             });            
         }
-        res.send(attribute);
+        res.send(content);
     }).catch(err => {
         if(err.kind === 'ObjectId') {
             return res.status(404).send({
-                message: "Attribute not found with id " + req.params.attributeId
+                message: "Content not found with id " + req.params.contentId
             });                
         }
         return res.status(500).send({
-            message: "Something wrong retrieving attribute with id " + req.params.attributeId
+            message: "Something wrong retrieving content with id " + req.params.contentId
         });
     });
 };
 
-// Update a attribute
+// Update a content
 exports.update = (req, res, next) => {
     // Validate Request
     if(!req.body) {
         return res.status(400).send({
-            message: "Attribute content can not be empty"
+            message: "Content content can not be empty"
         });
     }
 
-    // Find and update attribute with the request body
-    Attribute.findByIdAndUpdate(req.params.attributeId, {
-        name: req.body.name, 
-        value: req.body.value
-    }, {new: true})
-    .then(attribute => {
-        if(!attribute) {
+    // Find and update content with the request body
+    Content.findByIdAndUpdate(req.params.contentId, {
+        title: req.body.title, 
+        description: req.body.description, 
+        image: req.body.image, 
+        when_content_complete: req.body.when_content_complete, 
+        modality: req.body.modality, 
+        type: req.body.type, 
+        source: req.body.source, 
+        recommended_duration: req.body.recommended_duration, 
+        language: req.body.language, 
+        created_and_optimize_for: req.body.created_and_optimize_for, 
+        expertise_level: req.body.expertise_level, 
+        technology_title: req.body.technology_title, 
+        technology_version: req.body.technology_version
+    }, {new: true, runValidators: true})
+    .then(content => {
+        if(!content) {
             return res.status(404).send({
-                message: "Attribute not found with id " + req.params.attributeId
+                message: "Content not found with id " + req.params.contentId
             });
         }
-        res.send(attribute);
+        res.send(content);
     }).catch(err => {
         if(err.kind === 'ObjectId') {
             return res.status(404).send({
-                message: "Attribute not found with id " + req.params.attributeId
+                message: "Content not found with id " + req.params.contentId
+            });                
+        }
+        if(err.name === 'ValidationError') {
+            return res.status(400).send({
+                message: err.message
             });                
         }
         return res.status(500).send({
-            message: "Something wrong updating note with id " + req.params.attributeId
+            message: "Something wrong updating note with id " + req.params.contentId
         });
     });
 };
 
 // Delete a note with the specified noteId in the request
 exports.delete = (req, res, next) => {
-    Attribute.findByIdAndRemove(req.params.attributeId)
-    .then(attribute => {
-        if(!attribute) {
+    Content.findByIdAndRemove(req.params.contentId)
+    .then(content => {
+        if(!content) {
             return res.status(404).send({
-                message: "Attribute not found with id " + req.params.attributeId
+                message: "Content not found with id " + req.params.contentId
             });
         }
-        res.send({message: "Attribute deleted successfully!"});
+        res.send({message: "Content deleted successfully!"});
     }).catch(err => {
-        if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+        if(err.kind === 'ObjectId' || err.title === 'NotFound') {
             return res.status(404).send({
-                message: "Attribute not found with id " + req.params.attributeId
+                message: "Content not found with id " + req.params.contentId
             });                
         }
         return res.status(500).send({
-            message: "Could not delete attribute with id " + req.params.attributeId
+            message: "Could not delete content with id " + req.params.contentId
         });
     });
 };

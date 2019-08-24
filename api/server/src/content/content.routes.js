@@ -1,19 +1,19 @@
 module.exports = (app) => {
-    const attributes = require('./attribute.controller.js');
+    const contents = require('./content.controller.js');
     const auth = require('../library/auth.js');
 
-    // Create a new User
-    app.post('/attributes', auth.optional, attributes.create);
+    // Create a new Content
+    app.post('/contents', auth.optional, contents.create);
 
-    // Retrieve all Users
-    app.get('/attributes', auth.required, attributes.findAll);
+    // Retrieve all Contents
+    app.get('/contents', auth.required, contents.findAll);
 
-    // Retrieve a single User with attributeId
-    app.get('/attributes/:attributeId', auth.required, attributes.findOne);
+    // Retrieve a single Content with contentId
+    app.get('/contents/:contentId', auth.required, contents.findOne);
 
-    // Update a User with attributeId
-    app.put('/attributes/:attributeId', auth.required, attributes.update);
+    // Update a Content with contentId
+    app.put('/contents/:contentId', auth.required, contents.update);
 
-    // Delete a User with attributeId
-    app.delete('/attributes/:attributeId', auth.required, attributes.delete);
+    // Delete a Content with contentId
+    app.delete('/contents/:contentId', auth.required, contents.delete);
 }
