@@ -37,6 +37,7 @@ mongoose.set('debug', true);
 require('./user/user.routes.js')(app);
 require('./auth/auth.routes.js')(app);
 require('./attribute/attribute.routes.js')(app);
+require('./audience/audience.routes.js')(app);
 
 require('./config/passport.js');
 
