@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Animated, Dimensions, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
-import Icon from 'react-native-vector-icons';
-import { LinearGradient } from 'expo';
+import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import { Button, Input, Block, Text } from '../components';
 import { theme, mocks } from '../constants';
@@ -41,8 +41,8 @@ class Explore extends Component {
           onRightPress={() => isEditing ? this.setState({ searchString: null }) : null}
           rightStyle={styles.searchRight}
           rightLabel={
-            <Icon.FontAwesome
-              name={isEditing ? "close" : "search"}
+            <Ionicons
+              name={isEditing ? "ios-close" : "ios-search"}
               size={theme.sizes.base / 1.6}
               color={theme.colors.gray2}
               style={styles.searchIcon}
