@@ -24,7 +24,11 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.jeydeveloper.lms",
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.jeydeveloper.lms"
     }
   }
 }
