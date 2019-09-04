@@ -86,7 +86,7 @@ class Walkthrough extends Component {
                                             style={styles.img}
                                         />
                                         <Text body1 style={styles.textSlide}>
-                                            Picking your travel destinations
+                                            Picking your travel destination
                                         </Text>
                                     </View>
                                 );
