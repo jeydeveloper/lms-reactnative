@@ -61,7 +61,7 @@ class Loading extends Component {
                     }}
                 >
                     <Text title1 whiteColor semibold>
-                        Felix Travel
+                        Welcome to LMS V3
                     </Text>
                     <ActivityIndicator
                         size="large"

@@ -5,7 +5,7 @@
  * @url http://passionui.com/docs/felix-travel/theming
  */
 export const BaseColor = {
-    primaryColor: "#E5634D",
+    primaryColor: "#0566BE",
     darkPrimaryColor: "#C31C0D",
     lightPrimaryColor: "#FF8A65",
     accentColor: "#4A90A4",

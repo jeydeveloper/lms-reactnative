@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { AuthActions } from "@actions";
-import { View, TouchableOpacity, ScrollView } from "react-native";
+import { View, TouchableOpacity, ScrollView, TextInput } from "react-native";
 import { bindActionCreators } from "redux";
-import { SafeAreaView, Text, Button, Image } from "@components";
+import { SafeAreaView, Text, Button, Image, Header, Icon } from "@components";
 import styles from "./styles";
 import Swiper from "react-native-swiper";
 import { BaseColor, BaseStyle, Images } from "@config";
@@ -21,7 +21,13 @@ class Walkthrough extends Component {
                 { key: 2, image: Images.trip1 },
                 { key: 3, image: Images.trip3 },
                 { key: 4, image: Images.trip4 }
-            ]
+            ],
+            id: "",
+            password: "",
+            success: {
+                id: true,
+                password: true
+            }
         };
     }
 
@@ -47,6 +53,41 @@ class Walkthrough extends Component {
                 });
             }
         );
+    }
+
+    onLogin() {
+        const { id, password, success } = this.state;
+        const { navigation } = this.props;
+        if (id == "" || password == "") {
+            this.setState({
+                success: {
+                    ...success,
+                    id: false,
+                    password: false
+                }
+            });
+        } else {
+            this.setState(
+                {
+                    loading: true
+                },
+                () => {
+                    this.props.actions.authentication(true, response => {
+                        if (
+                            response.success &&
+                            id == "test" &&
+                            password == "123456"
+                        ) {
+                            navigation.navigate("Loading");
+                        } else {
+                            this.setState({
+                                loading: false
+                            });
+                        }
+                    });
+                }
+            );
+        }
     }
 
     render() {
@@ -86,31 +127,66 @@ class Walkthrough extends Component {
                                             style={styles.img}
                                         />
                                         <Text body1 style={styles.textSlide}>
-                                            Picking your travel destination
+                                            Welcome to LMS V3
                                         </Text>
                                     </View>
                                 );
                             })}
                         </Swiper>
                     </View>
+                    <TextInput
+                        style={[BaseStyle.textInput, { marginTop: 10 }]}
+                        onChangeText={text => this.setState({ id: text })}
+                        onFocus={() => {
+                            this.setState({
+                                success: {
+                                    ...this.state.success,
+                                    id: true
+                                }
+                            });
+                        }}
+                        autoCorrect={false}
+                        placeholder="ID"
+                        placeholderTextColor={
+                            this.state.success.id
+                                ? BaseColor.grayColor
+                                : BaseColor.primaryColor
+                        }
+                        value={this.state.id}
+                        selectionColor={BaseColor.primaryColor}
+                    />
+                    <TextInput
+                        style={[BaseStyle.textInput, { marginTop: 10 }]}
+                        onChangeText={text =>
+                            this.setState({ password: text })
+                        }
+                        onFocus={() => {
+                            this.setState({
+                                success: {
+                                    ...this.state.success,
+                                    password: true
+                                }
+                            });
+                        }}
+                        autoCorrect={false}
+                        placeholder="Password"
+                        secureTextEntry={true}
+                        placeholderTextColor={
+                            this.state.success.password
+                                ? BaseColor.grayColor
+                                : BaseColor.primaryColor
+                        }
+                        value={this.state.password}
+                        selectionColor={BaseColor.primaryColor}
+                    />
                     <View style={{ width: "100%" }}>
                         <Button
                             full
-                            style={{
-                                backgroundColor: BaseColor.navyBlue,
-                                marginTop: 20
-                            }}
-                            onPress={() => {
-                                this.authentication();
-                            }}
-                        >
-                            Login with Facebook
-                        </Button>
-                        <Button
-                            full
-                            style={{ marginTop: 20 }}
                             loading={this.state.loading}
-                            onPress={() => navigation.navigate("SignIn")}
+                            style={{ marginTop: 20 }}
+                            onPress={() => {
+                                this.onLogin();
+                            }}
                         >
                             Sign In
                         </Button>
