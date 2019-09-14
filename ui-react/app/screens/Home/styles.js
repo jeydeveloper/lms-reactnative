@@ -26,33 +26,6 @@ export default StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-around"
     },
-    contentCartPromotion: {
-        marginTop: 10,
-        flexDirection: "row",
-        justifyContent: "flex-start"
-    },
-    btnPromotion: {
-        height: 25,
-        borderRadius: 3,
-        paddingHorizontal: 10,
-        paddingVertical: 5
-    },
-    contentHiking: {
-        marginTop: 20,
-        marginLeft: 20,
-        marginBottom: 10
-    },
-    promotionBanner: {
-        height: Utils.scaleWithPixel(100),
-        width: "100%",
-        marginTop: 10
-    },
-    line: {
-        height: 1,
-        backgroundColor: BaseColor.textSecondaryColor,
-        marginTop: 10,
-        marginBottom: 20
-    },
     iconContent: {
         justifyContent: "center",
         alignItems: "center",
@@ -66,10 +39,5 @@ export default StyleSheet.create({
         borderRadius: 8,
         width: Utils.scaleWithPixel(200),
         height: Utils.scaleWithPixel(250)
-    },
-    tourItem: {
-        borderRadius: 8,
-        width: Utils.scaleWithPixel(135),
-        height: Utils.scaleWithPixel(160)
     }
 });

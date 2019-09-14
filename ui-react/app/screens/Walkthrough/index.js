@@ -146,7 +146,7 @@ class Walkthrough extends Component {
                             });
                         }}
                         autoCorrect={false}
-                        placeholder="ID"
+                        placeholder="Username"
                         placeholderTextColor={
                             this.state.success.id
                                 ? BaseColor.grayColor

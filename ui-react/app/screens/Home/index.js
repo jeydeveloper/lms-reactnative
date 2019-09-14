@@ -29,11 +29,12 @@ export default class Home extends Component {
         // Temp data define
         this.state = {
             icons: [
-                { icon: "calendar-alt", name: "Hotel" },
-                { icon: "map-marker-alt", name: "Tour" },
-                { icon: "car-alt", name: "Car" },
-                { icon: "plane", name: "Flight" },
-                { icon: "ship", name: "Cruise" }
+                { icon: "gamepad", name: "Game" },
+                { icon: "graduation-cap", name: "Interactive" },
+                { icon: "desktop", name: "Video" },
+                { icon: "book", name: "Book" },
+                { icon: "headphones", name: "Audio" },
+                { icon: "question", name: "Quiz" }
             ],
             promotion: PromotionData,
             tours: TourData,
@@ -134,7 +135,7 @@ export default class Home extends Component {
                                 >
                                     <View style={BaseStyle.textInput}>
                                         <Text body1 grayColor>
-                                            What're you looking for ?
+                                            What are you looking for ?
                                         </Text>
                                     </View>
                                 </TouchableOpacity>
@@ -149,7 +150,7 @@ export default class Home extends Component {
                                 semibold
                                 style={{ marginLeft: 20, marginVertical: 10 }}
                             >
-                                Promos Today
+                                My Favourite
                             </Text>
                             <FlatList
                                 horizontal={true}
@@ -168,109 +169,83 @@ export default class Home extends Component {
                                         onPress={() =>
                                             navigation.navigate("HotelDetail")
                                         }
+                                        onPressLike={() => {}}
+                                        onPressFavouriteRemove={() => {}}
+                                        title1={item.title1}
+                                        title2={item.title2}
+                                        buttonTitle="Remove Favourite"
                                     >
-                                        <Text subhead whiteColor>
-                                            {item.title1}
-                                        </Text>
-                                        <Text title2 whiteColor semibold>
-                                            {item.title2}
-                                        </Text>
-                                        <View
-                                            style={styles.contentCartPromotion}
-                                        >
-                                            <Button
-                                                style={styles.btnPromotion}
-                                                onPress={() => {
-                                                    navigation.navigate(
-                                                        "PreviewBooking"
-                                                    );
-                                                }}
-                                            >
-                                                <Text body2 semibold whiteColor>
-                                                    Book Now
-                                                </Text>
-                                            </Button>
-                                        </View>
                                     </Card>
                                 )}
                             />
                         </View>
-                        {/* Hiking */}
                         <View>
-                            <View style={styles.contentHiking}>
-                                <Text title3 semibold>
-                                    Tours
-                                </Text>
-                                <Text body2 grayColor>
-                                    Let find out what most interesting things
-                                </Text>
-                            </View>
+                            <Text
+                                title3
+                                semibold
+                                style={{ marginLeft: 20, marginVertical: 10 }}
+                            >
+                                Enhancement
+                            </Text>
                             <FlatList
                                 horizontal={true}
                                 showsHorizontalScrollIndicator={false}
-                                data={tours}
+                                data={promotion}
                                 keyExtractor={(item, index) => item.id}
                                 renderItem={({ item, index }) => (
                                     <Card
                                         style={[
-                                            styles.tourItem,
+                                            styles.promotionItem,
                                             index == 0
                                                 ? { marginHorizontal: 20 }
                                                 : { marginRight: 20 }
                                         ]}
                                         image={item.image}
                                         onPress={() =>
-                                            navigation.navigate("TourDetail")
+                                            navigation.navigate("HotelDetail")
                                         }
+                                        onPressLike={() => {}}
+                                        onPressFavouriteRemove={() => {}}
+                                        title1={item.title1}
+                                        title2={item.title2}
+                                        buttonTitle="Add Favourite"
                                     >
-                                        <Text headline whiteColor semibold>
-                                            {item.name}
-                                        </Text>
                                     </Card>
                                 )}
                             />
                         </View>
-                        {/* Promotion */}
-                        <View
-                            style={{
-                                padding: 20
-                            }}
-                        >
-                            <Text title3 semibold>
-                                Promotion
+                        <View>
+                            <Text
+                                title3
+                                semibold
+                                style={{ marginLeft: 20, marginVertical: 10 }}
+                            >
+                                Mandatory
                             </Text>
-                            <Text body2 grayColor>
-                                What’s the Worst That Could Happen
-                            </Text>
-                            <Image
-                                source={Images.banner1}
-                                style={styles.promotionBanner}
-                            />
-                            <View style={styles.line} />
                             <FlatList
-                                columnWrapperStyle={{ marginBottom: 20 }}
-                                numColumns={2}
-                                data={hotels}
+                                horizontal={true}
+                                showsHorizontalScrollIndicator={false}
+                                data={promotion}
                                 keyExtractor={(item, index) => item.id}
                                 renderItem={({ item, index }) => (
-                                    <HotelItem
-                                        grid
+                                    <Card
+                                        style={[
+                                            styles.promotionItem,
+                                            index == 0
+                                                ? { marginHorizontal: 20 }
+                                                : { marginRight: 20 }
+                                        ]}
                                         image={item.image}
-                                        name={item.name}
-                                        location={item.location}
-                                        price={item.price}
-                                        available={item.available}
-                                        rate={item.rate}
-                                        rateStatus={item.rateStatus}
-                                        numReviews={item.numReviews}
-                                        services={item.services}
-                                        style={
-                                            index % 2 ? { marginLeft: 15 } : {}
-                                        }
                                         onPress={() =>
                                             navigation.navigate("HotelDetail")
                                         }
-                                    />
+                                        onPressLike={() => {}}
+                                        onPressFavouriteRemove={() => {}}
+                                        title1={item.title1}
+                                        title2={item.title2}
+                                        buttonTitle="Add Favourite"
+                                    >
+                                    </Card>
                                 )}
                             />
                         </View>

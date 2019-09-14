@@ -55,3 +55,9 @@ react-native bundle --platform android --dev false --entry-file index.android.js
 This is a single command too!
 
 4. Now run react-native run-android
+
+check emulator :
+avdmanager list avd
+ 
+if get error "Exception in thread "main" java.lang.NoClassDefFoundError: javax/xml/bind/annotation/XmlSchema"
+on mac : export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
