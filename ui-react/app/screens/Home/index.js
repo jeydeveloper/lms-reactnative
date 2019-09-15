@@ -109,41 +109,41 @@ export default class Home extends Component {
                         }
                     ]}
                 />
-                <Header
-                    title="LMS V3"
-                    leftArrowShow={false}
-                    renderLeft={() => {
-                        return (
-                            <Icon
-                                name="arrow-left"
-                                size={20}
-                                color={BaseColor.primaryColor}
-                            />
-                        );
-                    }}
-                    renderRight={() => {
-                        return (
-                            <Icon
-                                name="bell"
-                                size={24}
-                                color={BaseColor.primaryColor}
-                            />
-                        );
-                    }}
-                    onPressLeft={() => {
-                        navigation.goBack();
-                    }}
-                    onPressRight={() => {
-                        navigation.navigate("Notification");
-                    }}
-                    onPressRightSecond={() => {
-                        navigation.navigate("Messenger");
-                    }}
-                />
                 <SafeAreaView
                     style={BaseStyle.safeAreaView}
                     forceInset={{ top: "always" }}
                 >
+                    <Header
+                        title="LMS V3"
+                        leftArrowShow={false}
+                        renderLeft={() => {
+                            return (
+                                <Icon
+                                    name="arrow-left"
+                                    size={20}
+                                    color={BaseColor.primaryColor}
+                                />
+                            );
+                        }}
+                        renderRight={() => {
+                            return (
+                                <Icon
+                                    name="bell"
+                                    size={24}
+                                    color={BaseColor.primaryColor}
+                                />
+                            );
+                        }}
+                        onPressLeft={() => {
+                            navigation.goBack();
+                        }}
+                        onPressRight={() => {
+                            navigation.navigate("Notification");
+                        }}
+                        onPressRightSecond={() => {
+                            navigation.navigate("Messenger");
+                        }}
+                    />
                     <ScrollView
                         onScroll={Animated.event([
                             {

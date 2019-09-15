@@ -58,6 +58,11 @@ This is a single command too!
 
 check emulator :
 avdmanager list avd
- 
+
 if get error "Exception in thread "main" java.lang.NoClassDefFoundError: javax/xml/bind/annotation/XmlSchema"
 on mac : export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee'
+
+5. For IOS : react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios
+
+6. react-native run-ios
+
