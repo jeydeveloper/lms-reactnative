@@ -14,6 +14,10 @@ import { WorkProgressData } from "./workprogress";
 import { HelpBlockData } from "./helpblock";
 import { ReviewData } from "./review";
 import { CarData } from "./car";
+import { EnhancementData } from "./enhancement";
+import { MandatoryData } from "./mandatory";
+import { FavouriteData } from "./favourite";
+import { PostDetailData } from "./postDetail";
 
 // Sample data for display on template
 export {
@@ -32,5 +36,9 @@ export {
     WorkProgressData,
     HelpBlockData,
     ReviewData,
-    CarData
+    CarData,
+    EnhancementData,
+    MandatoryData,
+    FavouriteData,
+    PostDetailData
 };

@@ -24,18 +24,21 @@ export default class Header extends Component {
             subTitle,
             onPressLeft,
             onPressRight,
-            onPressRightSecond
+            onPressRightSecond,
+            leftArrowShow
         } = this.props;
 
         return (
             <View style={[styles.contain, style]}>
                 <View style={{ flex: 1 }}>
+                    {leftArrowShow ? (
                     <TouchableOpacity
                         style={[styles.contentLeft, styleLeft]}
                         onPress={onPressLeft}
                     >
                         {this.props.renderLeft()}
                     </TouchableOpacity>
+                    ) : null}
                 </View>
                 <View style={[styles.contentCenter, styleCenter]}>
                     <Text headline>{title}</Text>
@@ -78,7 +81,8 @@ Header.propTypes = {
     onPressRight: PropTypes.func,
     title: PropTypes.string,
     subTitle: PropTypes.string,
-    barStyle: PropTypes.string
+    barStyle: PropTypes.string,
+    leftArrowShow: PropTypes.bool
 };
 
 Header.defaultProps = {
@@ -95,5 +99,6 @@ Header.defaultProps = {
     onPressRightSecond: () => {},
     title: "Title",
     subTitle: "",
-    barStyle: "default"
+    barStyle: "default",
+    leftArrowShow: true
 };

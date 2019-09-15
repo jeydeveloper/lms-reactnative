@@ -1,576 +1,53 @@
 import React, { Component } from "react";
-import {
-    FlatList,
-    RefreshControl,
-    View,
-    TouchableOpacity,
-    Animated,
-    Platform
-} from "react-native";
-import { BaseStyle, BaseColor } from "@config";
+import { View, ScrollView } from "react-native";
+import { BaseStyle, BaseColor, Images } from "@config";
 import {
     Header,
     SafeAreaView,
     Icon,
     Text,
-    HotelItem,
-    Button,
-    FilterSort
+    Image,
+    ProfileDescription
 } from "@components";
-import Modal from "react-native-modal";
 import styles from "./styles";
-import * as Utils from "@utils";
 
-// Load sample data
-import { HotelData } from "@data";
-
-export default class Hotel extends Component {
+export default class OurService extends Component {
     constructor(props) {
         super(props);
-        const scrollAnim = new Animated.Value(0);
-        const offsetAnim = new Animated.Value(0);
 
         // Temp data define
         this.state = {
-            refreshing: false,
-            loading: false,
-            scrollAnim,
-            offsetAnim,
-            clampedScroll: Animated.diffClamp(
-                Animated.add(
-                    scrollAnim.interpolate({
-                        inputRange: [0, 1],
-                        outputRange: [0, 1],
-                        extrapolateLeft: "clamp"
-                    }),
-                    offsetAnim
-                ),
-                0,
-                40
-            ),
-            modeView: "block",
-            hotels: HotelData,
-            filter: [
+            ourTeam: [
                 {
-                    value: "low_price",
-                    icon: "sort-amount-up",
-                    text: "Lowest Price",
-                    checked: true
+                    image: Images.profile2,
+                    subName: "CEO Founder",
+                    name: "Kondo Ieyasu",
+                    screen: "Profile1",
+                    description: "Lorem ipsum dolor sit amet, sed do eiusmod tempor incididunt ut labore"
                 },
                 {
-                    value: "hight_price",
-                    icon: "sort-amount-down",
-                    text: "Hightest Price"
+                    image: Images.profile3,
+                    subName: "Sale Manager",
+                    name: "Yeray Rosales",
+                    screen: "Profile2",
+                    description: "Lorem ipsum dolor sit amet, sed do eiusmod tempor incididunt ut labore"
                 },
                 {
-                    value: "low_rate",
-                    icon: "sort-amount-up",
-                    text: "Hightest Rating"
+                    image: Images.profile5,
+                    subName: "Product Manager",
+                    name: "Alf Huncoot",
+                    screen: "Profile3",
+                    description: "Lorem ipsum dolor sit amet, sed do eiusmod tempor incididunt ut labore"
                 },
                 {
-                    value: "hight_rate",
-                    icon: "sort-amount-down",
-                    text: "Popularity"
+                    image: Images.profile4,
+                    subName: "Designer UI/UX",
+                    name: "Chioke Okonkwo",
+                    screen: "Profile4",
+                    description: "Lorem ipsum dolor sit amet, sed do eiusmod tempor incididunt ut labore"
                 }
-            ],
-            filterSort: {
-                sortIcon: "sort-amount-down",
-                sortTitle: "Hightest Rating",
-                filterIcon: "filter",
-                filterTitle: "Filter",
-                modeViewIcon: "th-list"
-            }
+            ]
         };
-
-        this.onChangeView = this.onChangeView.bind(this);
-        this.onChangeFilter = this.onChangeFilter.bind(this);
-    }
-
-    /**
-     * @description Open modal when filterring mode is pressed
-     * @author Passion UI <passionui.com>
-     * @date 2019-08-03
-     * @param {*} modal
-     */
-    openModal(modal) {
-        this.setState({
-            modalVisible: modal
-        });
-    }
-
-    /**
-     * @description Open modal when filterring mode is applied
-     * @author Passion UI <passionui.com>
-     * @date 2019-08-03
-     */
-    onChangeFilter() {
-        const { navigation } = this.props;
-        navigation.navigate("Filter");
-    }
-
-    /**
-     * @description Open modal when view mode is pressed
-     * @author Passion UI <passionui.com>
-     * @date 2019-08-03
-     */
-    onChangeView() {
-        let { modeView } = this.state;
-        Utils.enableExperimental();
-        switch (modeView) {
-            case "block":
-                this.setState({
-                    modeView: "grid",
-                    filterSort: {
-                        ...this.state.filterSort,
-                        modeViewIcon: "th-large"
-                    }
-                });
-                break;
-            case "grid":
-                this.setState({
-                    modeView: "list",
-                    filterSort: {
-                        ...this.state.filterSort,
-                        modeViewIcon: "th-list"
-                    }
-                });
-                break;
-            case "list":
-                this.setState({
-                    modeView: "block",
-                    filterSort: {
-                        ...this.state.filterSort,
-                        modeViewIcon: "square"
-                    }
-                });
-                break;
-            default:
-                this.setState({
-                    modeView: "block",
-                    filterSort: {
-                        ...this.state.filterSort,
-                        modeViewIcon: "square"
-                    }
-                });
-                break;
-        }
-    }
-
-    /**
-     * @description Open modal when filterring mode is pressed
-     * @author Passion UI <passionui.com>
-     * @date 2019-08-03
-     * @param {*} check
-     */
-    onCheckFilter(check) {
-        this.setState({
-            filter: this.state.filter.map(item => {
-                if (item.value == check.value) {
-                    return { ...item, checked: true };
-                } else {
-                    return { ...item, checked: false };
-                }
-            })
-        });
-    }
-
-    /**
-     * @description Load modal container
-     * @author Passion UI <passionui.com>
-     * @date 2019-08-03
-     * @returns
-     */
-    renderModal() {
-        let { modalVisible, filter, loading } = this.state;
-        return (
-            <Modal
-                isVisible={modalVisible === "bottom"}
-                onSwipeComplete={() => this.setState({ modalVisible: false })}
-                swipeDirection={["right", "down"]}
-                style={styles.bottomModal}
-            >
-                <View style={styles.contentFilterBottom}>
-                    <View style={styles.contentSwipeDown}>
-                        <View style={styles.lineSwipeDown} />
-                    </View>
-                    {filter.map((item, index) => (
-                        <TouchableOpacity
-                            style={styles.contentActionModalBottom}
-                            key={item.value}
-                            onPress={() => this.onCheckFilter(item)}
-                        >
-                            <Text body2 semibold primaryColor={item.checked}>
-                                {item.text}
-                            </Text>
-                            {item.checked && (
-                                <Icon
-                                    name="check"
-                                    size={14}
-                                    color={BaseColor.primaryColor}
-                                />
-                            )}
-                        </TouchableOpacity>
-                    ))}
-                    <Button
-                        full
-                        loading={loading}
-                        style={{ marginTop: 10, marginBottom: 20 }}
-                        onPress={() => {
-                            this.setState(
-                                {
-                                    loading: true
-                                },
-                                () => {
-                                    setTimeout(() => {
-                                        const sortItem = filter.filter(
-                                            item => item.checked
-                                        );
-                                        this.setState({
-                                            loading: false,
-                                            modalVisible: false,
-                                            filterSort: {
-                                                ...this.state.filterSort,
-                                                sortTitle: sortItem[0].text,
-                                                sortIcon: sortItem[0].icon
-                                            }
-                                        });
-                                    }, 500);
-                                }
-                            );
-                        }}
-                    >
-                        Apply
-                    </Button>
-                </View>
-            </Modal>
-        );
-    }
-
-    /**
-    * @description Render container view
-    * @author Passion UI <passionui.com>
-    * @date 2019-08-03
-    * @returns
-    */
-    renderContent() {
-        const {
-            modeView,
-            hotels,
-            refreshing,
-            filterSort,
-            clampedScroll
-        } = this.state;
-        const { navigation } = this.props;
-        const navbarTranslate = clampedScroll.interpolate({
-            inputRange: [0, 40],
-            outputRange: [0, -40],
-            extrapolate: "clamp"
-        });
-        const androidMargin = Platform.OS === "android" ? 50 : 0;
-        switch (modeView) {
-            case "block":
-                return (
-                    <View style={{ flex: 1 }}>
-                        <Animated.FlatList
-                            contentContainerStyle={{
-                                marginBottom: 50,
-                                marginTop: androidMargin
-                            }}
-                            contentInset={{ top: 50 }}
-                            refreshControl={
-                                <RefreshControl
-                                    colors={[BaseColor.primaryColor]}
-                                    tintColor={BaseColor.primaryColor}
-                                    refreshing={refreshing}
-                                    onRefresh={() => { }}
-                                />
-                            }
-                            scrollEventThrottle={1}
-                            onScroll={Animated.event(
-                                [
-                                    {
-                                        nativeEvent: {
-                                            contentOffset: {
-                                                y: this.state.scrollAnim
-                                            }
-                                        }
-                                    }
-                                ],
-                                { useNativeDriver: true }
-                            )}
-                            data={hotels}
-                            key={"block"}
-                            keyExtractor={(item, index) => item.id}
-                            renderItem={({ item, index }) => (
-                                <HotelItem
-                                    block
-                                    image={item.image}
-                                    name={item.name}
-                                    location={item.location}
-                                    price={item.price}
-                                    available={item.available}
-                                    rate={item.rate}
-                                    rateStatus={item.rateStatus}
-                                    numReviews={item.numReviews}
-                                    services={item.services}
-                                    style={{
-                                        marginBottom: 10
-                                    }}
-                                    onPress={() =>
-                                        navigation.navigate("HotelDetail")
-                                    }
-                                    onPressTag={() =>
-                                        navigation.navigate("Review")
-                                    }
-                                />
-                            )}
-                        />
-                        <Animated.View
-                            style={[
-                                styles.navbar,
-                                { transform: [{ translateY: navbarTranslate }] }
-                            ]}
-                        >
-                            <FilterSort
-                                sortIcon={filterSort.sortIcon}
-                                sortTitle={filterSort.sortTitle}
-                                filterIcon={filterSort.filterIcon}
-                                filterTitle={filterSort.filterTitle}
-                                modeViewIcon={filterSort.modeViewIcon}
-                                onChangeSort={() => this.openModal("bottom")}
-                                onChangeView={this.onChangeView}
-                                onChangeFilter={this.onChangeFilter}
-                            />
-                        </Animated.View>
-                    </View>
-                );
-            case "grid":
-                return (
-                    <View style={{ flex: 1 }}>
-                        <Animated.FlatList
-                            contentInset={{ top: 50 }}
-                            columnWrapperStyle={{
-                                marginHorizontal: 20,
-                                marginTop: androidMargin
-                            }}
-                            refreshControl={
-                                <RefreshControl
-                                    colors={[BaseColor.primaryColor]}
-                                    tintColor={BaseColor.primaryColor}
-                                    refreshing={refreshing}
-                                    onRefresh={() => { }}
-                                />
-                            }
-                            scrollEventThrottle={1}
-                            onScroll={Animated.event(
-                                [
-                                    {
-                                        nativeEvent: {
-                                            contentOffset: {
-                                                y: this.state.scrollAnim
-                                            }
-                                        }
-                                    }
-                                ],
-                                { useNativeDriver: true }
-                            )}
-                            numColumns={2}
-                            data={hotels}
-                            key={"grid"}
-                            keyExtractor={(item, index) => item.id}
-                            renderItem={({ item, index }) => (
-                                <HotelItem
-                                    grid
-                                    image={item.image}
-                                    name={item.name}
-                                    location={item.location}
-                                    price={item.price}
-                                    available={item.available}
-                                    rate={item.rate}
-                                    rateStatus={item.rateStatus}
-                                    numReviews={item.numReviews}
-                                    services={item.services}
-                                    onPress={() =>
-                                        navigation.navigate("HotelDetail")
-                                    }
-                                    style={{
-                                        marginBottom: 10,
-                                        marginLeft: index % 2 ? 15 : 0
-                                    }}
-                                />
-                            )}
-                        />
-                        <Animated.View
-                            style={[
-                                styles.navbar,
-                                {
-                                    transform: [{ translateY: navbarTranslate }]
-                                }
-                            ]}
-                        >
-                            <FilterSort
-                                sortIcon={filterSort.sortIcon}
-                                sortTitle={filterSort.sortTitle}
-                                filterIcon={filterSort.filterIcon}
-                                filterTitle={filterSort.filterTitle}
-                                modeViewIcon={filterSort.modeViewIcon}
-                                onChangeSort={() => this.openModal("bottom")}
-                                onChangeView={this.onChangeView}
-                                onChangeFilter={this.onChangeFilter}
-                            />
-                        </Animated.View>
-                    </View>
-                );
-            case "list":
-                return (
-                    <View style={{ flex: 1 }}>
-                        <Animated.FlatList
-                            contentInset={{ top: 50 }}
-                            contentContainerStyle={{
-                                marginTop: androidMargin
-                            }}
-                            refreshControl={
-                                <RefreshControl
-                                    colors={[BaseColor.primaryColor]}
-                                    tintColor={BaseColor.primaryColor}
-                                    refreshing={refreshing}
-                                    onRefresh={() => { }}
-                                />
-                            }
-                            scrollEventThrottle={1}
-                            onScroll={Animated.event(
-                                [
-                                    {
-                                        nativeEvent: {
-                                            contentOffset: {
-                                                y: this.state.scrollAnim
-                                            }
-                                        }
-                                    }
-                                ],
-                                { useNativeDriver: true }
-                            )}
-                            data={hotels}
-                            key={"list"}
-                            keyExtractor={(item, index) => item.id}
-                            renderItem={({ item, index }) => (
-                                <HotelItem
-                                    list
-                                    image={item.image}
-                                    name={item.name}
-                                    location={item.location}
-                                    price={item.price}
-                                    available={item.available}
-                                    rate={item.rate}
-                                    rateStatus={item.rateStatus}
-                                    numReviews={item.numReviews}
-                                    services={item.services}
-                                    style={{
-                                        marginBottom: 10
-                                    }}
-                                    onPress={() => {
-                                        this.props.navigation.navigate(
-                                            "HotelDetail"
-                                        );
-                                    }}
-                                />
-                            )}
-                        />
-                        <Animated.View
-                            style={[
-                                styles.navbar,
-                                {
-                                    transform: [{ translateY: navbarTranslate }]
-                                }
-                            ]}
-                        >
-                            <FilterSort
-                                sortIcon={filterSort.sortIcon}
-                                sortTitle={filterSort.sortTitle}
-                                filterIcon={filterSort.filterIcon}
-                                filterTitle={filterSort.filterTitle}
-                                modeViewIcon={filterSort.modeViewIcon}
-                                onChangeSort={() => this.openModal("bottom")}
-                                onChangeView={this.onChangeView}
-                                onChangeFilter={this.onChangeFilter}
-                            />
-                        </Animated.View>
-                    </View>
-                );
-            default:
-                return (
-                    <View style={{ flex: 1 }}>
-                        <Animated.FlatList
-                            contentInset={{ top: 50 }}
-                            contentContainerStyle={{ marginTop: androidMargin }}
-                            refreshControl={
-                                <RefreshControl
-                                    colors={[BaseColor.primaryColor]}
-                                    tintColor={BaseColor.primaryColor}
-                                    refreshing={refreshing}
-                                    onRefresh={() => { }}
-                                />
-                            }
-                            scrollEventThrottle={1}
-                            onScroll={Animated.event(
-                                [
-                                    {
-                                        nativeEvent: {
-                                            contentOffset: {
-                                                y: this.state.scrollAnim
-                                            }
-                                        }
-                                    }
-                                ],
-                                { useNativeDriver: true }
-                            )}
-                            data={hotels}
-                            key={"block"}
-                            keyExtractor={(item, index) => item.id}
-                            renderItem={({ item, index }) => (
-                                <HotelItem
-                                    block
-                                    image={item.image}
-                                    name={item.name}
-                                    location={item.location}
-                                    price={item.price}
-                                    available={item.available}
-                                    rate={item.rate}
-                                    rateStatus={item.rateStatus}
-                                    numReviews={item.numReviews}
-                                    services={item.services}
-                                    style={{
-                                        marginBottom: 10
-                                    }}
-                                    onPress={() =>
-                                        navigation.navigate("HotelDetail")
-                                    }
-                                    onPressTag={() =>
-                                        navigation.navigate("Preview")
-                                    }
-                                />
-                            )}
-                        />
-                        <Animated.View
-                            style={[
-                                styles.navbar,
-                                { transform: [{ translateY: navbarTranslate }] }
-                            ]}
-                        >
-                            <FilterSort
-                                sortIcon={filterSort.sortIcon}
-                                sortTitle={filterSort.sortTitle}
-                                filterIcon={filterSort.filterIcon}
-                                filterTitle={filterSort.filterTitle}
-                                modeViewIcon={filterSort.modeViewIcon}
-                                onChangeSort={() => this.openModal("bottom")}
-                                onChangeView={this.onChangeView}
-                                onChangeFilter={this.onChangeFilter}
-                            />
-                        </Animated.View>
-                    </View>
-                );
-        }
     }
 
     render() {
@@ -581,8 +58,7 @@ export default class Hotel extends Component {
                 forceInset={{ top: "always" }}
             >
                 <Header
-                    title="Hotels"
-                    subTitle="24 Dec 2018, 2 Nights, 1 Room"
+                    title="My Learning"
                     renderLeft={() => {
                         return (
                             <Icon
@@ -592,25 +68,151 @@ export default class Hotel extends Component {
                             />
                         );
                     }}
-                    renderRight={() => {
-                        return (
-                            <Icon
-                                name="search"
-                                size={20}
-                                color={BaseColor.primaryColor}
-                            />
-                        );
-                    }}
                     onPressLeft={() => {
                         navigation.goBack();
                     }}
-                    onPressRight={() => {
-                        navigation.navigate("SearchHistory");
-                    }}
                 />
-
-                {this.renderModal()}
-                {this.renderContent()}
+                <ScrollView>
+                    <View>
+                        <Image
+                            source={Images.trip4}
+                            style={{ width: "100%", height: 135 }}
+                        />
+                        <View style={styles.titleAbout}>
+                            <Text title1 semibold whiteColor>
+                                My Learning
+                            </Text>
+                            <Text subhead whiteColor>
+                                a journey into the past
+                            </Text>
+                        </View>
+                    </View>
+                    <View style={{ padding: 20 }}>
+                        <ProfileDescription
+                            image={require("@assets/images/profile-2.jpg")}
+                            name="Steve Garrett"
+                            subName="Travel Agency"
+                            description="Lorem ipsum dolor sit amet, sed do eiusmod tempor incididunt ut labore"
+                            onPress={() => navigation.navigate("Profile1")}
+                        />
+                        {/* Package */}
+                        <View style={{ marginTop: 20 }}>
+                            <Image
+                                source={Images.trip1}
+                                style={{ width: "100%", height: 100 }}
+                            />
+                            <View
+                                style={[
+                                    styles.titleAbout,
+                                    {
+                                        flexDirection: "row",
+                                        paddingHorizontal: 20
+                                    }
+                                ]}
+                            >
+                                <Icon
+                                    name="creative-commons"
+                                    solid
+                                    size={24}
+                                    color={BaseColor.whiteColor}
+                                />
+                                <View style={{ marginLeft: 10 }}>
+                                    <Text title3 semibold whiteColor>
+                                        Basic Package{" "}
+                                    </Text>
+                                    <Text footnote whiteColor numberOfLines={2}>
+                                        Lorem ipsum dolor sit amet, sed do
+                                        eiusmod tempor incididunt ut labore et
+                                        dolore
+                                    </Text>
+                                </View>
+                            </View>
+                        </View>
+                        <View style={{ marginTop: 10 }}>
+                            <Image
+                                source={Images.trip2}
+                                style={{ width: "100%", height: 100 }}
+                            />
+                            <View
+                                style={[
+                                    styles.titleAbout,
+                                    {
+                                        flexDirection: "row",
+                                        paddingHorizontal: 20
+                                    }
+                                ]}
+                            >
+                                <Icon
+                                    name="app-store-ios"
+                                    solid
+                                    size={24}
+                                    color={BaseColor.whiteColor}
+                                />
+                                <View style={{ marginLeft: 10 }}>
+                                    <Text title3 semibold whiteColor>
+                                        Standard Package
+                                    </Text>
+                                    <Text footnote whiteColor numberOfLines={2}>
+                                        Lorem ipsum dolor sit amet, sed do
+                                        eiusmod tempor incididunt ut labore et
+                                        dolore
+                                    </Text>
+                                </View>
+                            </View>
+                        </View>
+                        <View style={{ marginTop: 10 }}>
+                            <Image
+                                source={Images.trip3}
+                                style={{ width: "100%", height: 100 }}
+                            />
+                            <View
+                                style={[
+                                    styles.titleAbout,
+                                    {
+                                        flexDirection: "row",
+                                        paddingHorizontal: 20
+                                    }
+                                ]}
+                            >
+                                <Icon
+                                    name="algolia"
+                                    solid
+                                    size={24}
+                                    color={BaseColor.whiteColor}
+                                />
+                                <View style={{ marginLeft: 10 }}>
+                                    <Text title3 semibold whiteColor>
+                                        Primium Package
+                                    </Text>
+                                    <Text footnote whiteColor numberOfLines={2}>
+                                        Lorem ipsum dolor sit amet, sed do
+                                        eiusmod tempor incididunt ut labore et
+                                        dolore
+                                    </Text>
+                                </View>
+                            </View>
+                        </View>
+                        {/* Service */}
+                        <Text headline semibold style={{ marginTop: 20 }}>
+                            My Learning
+                        </Text>
+                        {this.state.ourTeam.map((item, index) => {
+                            return (
+                                <ProfileDescription
+                                    style={{ marginTop: 10 }}
+                                    key={"service" + index}
+                                    image={item.image}
+                                    description={item.description}
+                                    name={item.name}
+                                    subName={item.subName}
+                                    onPress={() =>
+                                        navigation.navigate(item.screen)
+                                    }
+                                />
+                            );
+                        })}
+                    </View>
+                </ScrollView>
             </SafeAreaView>
         );
     }

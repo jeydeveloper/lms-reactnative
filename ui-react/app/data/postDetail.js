@@ -1,6 +1,6 @@
 import { Images } from "@config";
 
-const PostData = [
+const PostDetailData = [
     {
         id: "1",
         image: Images.trip2,
@@ -15,7 +15,7 @@ const PostData = [
     {
         id: "2",
         image: Images.trip9,
-        title: "Mandatory",
+        title: "Enhancement",
         description:
             "Lorem ipsum dolor sit amet, velit tamquam eum et, pro agam sanctus minimum ut. Usu prompta invidunt at, noluisse ponderum nec ne. ",
         authorImage: Images.profile4,
@@ -26,7 +26,7 @@ const PostData = [
     {
         id: "1",
         image: Images.trip2,
-        title: "Marketing Channel",
+        title: "Enhancement",
         description:
             "Lorem ipsum dolor sit amet, velit tamquam eum et, pro agam sanctus minimum ut. Usu prompta invidunt at, noluisse ponderum nec ne. ",
         authorImage: Images.profile2,
@@ -37,7 +37,7 @@ const PostData = [
     {
         id: "2",
         image: Images.trip9,
-        title: "Time Management",
+        title: "Enhancement",
         description:
             "Lorem ipsum dolor sit amet, velit tamquam eum et, pro agam sanctus minimum ut. Usu prompta invidunt at, noluisse ponderum nec ne. ",
         authorImage: Images.profile4,
@@ -47,4 +47,4 @@ const PostData = [
     }
 ];
 
-export { PostData };
+export { PostDetailData };

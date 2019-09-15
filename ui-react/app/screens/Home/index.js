@@ -7,6 +7,7 @@ import {
     FlatList
 } from "react-native";
 import {
+    Header,
     Image,
     Text,
     Icon,
@@ -20,7 +21,12 @@ import * as Utils from "@utils";
 import styles from "./styles";
 
 // Load sample data
-import { PromotionData, TourData, HotelData } from "@data";
+import { 
+    FavouriteData, 
+    EnhancementData, 
+    MandatoryData, 
+    TourData, 
+    HotelData } from "@data";
 
 export default class Home extends Component {
     constructor(props) {
@@ -36,7 +42,9 @@ export default class Home extends Component {
                 { icon: "headphones", name: "Audio" },
                 { icon: "question", name: "Quiz" }
             ],
-            promotion: PromotionData,
+            favourite: FavouriteData,
+            enhancement: EnhancementData,
+            mandatory: MandatoryData,
             tours: TourData,
             hotels: HotelData,
             heightHeader: Utils.heightHeader()
@@ -76,9 +84,9 @@ export default class Home extends Component {
 
     render() {
         const { navigation } = this.props;
-        const { promotion, tours, hotels, heightHeader } = this.state;
+        const { favourite, enhancement, mandatory, tours, hotels, heightHeader } = this.state;
         const heightImageBanner = Utils.scaleWithPixel(140);
-        const marginTopBanner = heightImageBanner - heightHeader;
+        const marginTopBanner = (heightImageBanner - heightHeader) - 50;
         return (
             <View style={{ flex: 1 }}>
                 <Animated.Image
@@ -100,6 +108,37 @@ export default class Home extends Component {
                             })
                         }
                     ]}
+                />
+                <Header
+                    title="LMS V3"
+                    leftArrowShow={false}
+                    renderLeft={() => {
+                        return (
+                            <Icon
+                                name="arrow-left"
+                                size={20}
+                                color={BaseColor.primaryColor}
+                            />
+                        );
+                    }}
+                    renderRight={() => {
+                        return (
+                            <Icon
+                                name="bell"
+                                size={24}
+                                color={BaseColor.primaryColor}
+                            />
+                        );
+                    }}
+                    onPressLeft={() => {
+                        navigation.goBack();
+                    }}
+                    onPressRight={() => {
+                        navigation.navigate("Notification");
+                    }}
+                    onPressRightSecond={() => {
+                        navigation.navigate("Messenger");
+                    }}
                 />
                 <SafeAreaView
                     style={BaseStyle.safeAreaView}
@@ -155,7 +194,7 @@ export default class Home extends Component {
                             <FlatList
                                 horizontal={true}
                                 showsHorizontalScrollIndicator={false}
-                                data={promotion}
+                                data={favourite}
                                 keyExtractor={(item, index) => item.id}
                                 renderItem={({ item, index }) => (
                                     <Card
@@ -190,7 +229,7 @@ export default class Home extends Component {
                             <FlatList
                                 horizontal={true}
                                 showsHorizontalScrollIndicator={false}
-                                data={promotion}
+                                data={enhancement}
                                 keyExtractor={(item, index) => item.id}
                                 renderItem={({ item, index }) => (
                                     <Card
@@ -205,7 +244,7 @@ export default class Home extends Component {
                                             navigation.navigate("HotelDetail")
                                         }
                                         onPressLike={() => {}}
-                                        onPressFavouriteRemove={() => {}}
+                                        onPressFavourite={() => {}}
                                         title1={item.title1}
                                         title2={item.title2}
                                         buttonTitle="Add Favourite"
@@ -225,7 +264,7 @@ export default class Home extends Component {
                             <FlatList
                                 horizontal={true}
                                 showsHorizontalScrollIndicator={false}
-                                data={promotion}
+                                data={mandatory}
                                 keyExtractor={(item, index) => item.id}
                                 renderItem={({ item, index }) => (
                                     <Card
@@ -240,7 +279,7 @@ export default class Home extends Component {
                                             navigation.navigate("HotelDetail")
                                         }
                                         onPressLike={() => {}}
-                                        onPressFavouriteRemove={() => {}}
+                                        onPressFavourite={() => {}}
                                         title1={item.title1}
                                         title2={item.title2}
                                         buttonTitle="Add Favourite"

@@ -43,5 +43,10 @@ export default StyleSheet.create({
         borderBottomWidth: 1,
         paddingBottom: 20,
         paddingTop: 20
+    },
+    contain: {
+        alignItems: "center",
+        padding: 20,
+        width: "100%"
     }
 });

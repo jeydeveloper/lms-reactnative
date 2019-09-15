@@ -33,7 +33,7 @@ import PreviewImage from "@screens/PreviewImage";
 // import Review from "@screens/Review";
 // import Feedback from "@screens/Feedback";
 // import Messages from "@screens/Messages";
-// import Notification from "@screens/Notification";
+import Notification from "@screens/Notification";
 import Walkthrough from "@screens/Walkthrough";
 import SignUp from "@screens/SignUp";
 // import SignIn from "@screens/SignIn";
@@ -47,7 +47,7 @@ import SignUp from "@screens/SignUp";
 // import Currency from "@screens/Currency";
 // import Coupons from "@screens/Coupons";
 // import Booking from "@screens/Booking";
-// import HotelDetail from "@screens/HotelDetail";
+import HotelDetail from "@screens/LibraryDetail";
 // import ContactUs from "@screens/ContactUs";
 // import PreviewBooking from "@screens/PreviewBooking";
 // import PricingTable from "@screens/PricingTable";
@@ -208,9 +208,9 @@ const StackNavigator = createStackNavigator(
         // Messages: {
         //     screen: Messages
         // },
-        // Notification: {
-        //     screen: Notification
-        // },
+        Notification: {
+            screen: Notification
+        },
         Walkthrough: {
             screen: Walkthrough
         },
@@ -247,9 +247,9 @@ const StackNavigator = createStackNavigator(
         // BookingHistory: {
         //     screen: Booking
         // },
-        // HotelDetail: {
-        //     screen: HotelDetail
-        // },
+        HotelDetail: {
+            screen: HotelDetail
+        },
         // ContactUs: {
         //     screen: ContactUs
         // },

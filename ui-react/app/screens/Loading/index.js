@@ -61,7 +61,7 @@ class Loading extends Component {
                     }}
                 >
                     <Text title1 whiteColor semibold>
-                        Welcome to LMS V3
+                        LMS V3
                     </Text>
                     <ActivityIndicator
                         size="large"

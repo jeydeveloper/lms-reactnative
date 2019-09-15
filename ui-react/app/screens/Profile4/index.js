@@ -8,25 +8,52 @@ import {
     TouchableOpacity
 } from "react-native";
 import { BaseStyle, BaseColor, Images } from "@config";
-import { Header, SafeAreaView, Icon, Text, Tag, HotelItem } from "@components";
+import { Header, SafeAreaView, Icon, Text, Tag, HotelItem, Button } from "@components";
 import { TabView, TabBar } from "react-native-tab-view";
 import { UserData, HotelData } from "@data";
 import * as Utils from "@utils";
 import styles from "./styles";
 
-export default class Profile4 extends Component {
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { AuthActions } from "@actions";
+
+class Profile4 extends Component {
     constructor(props) {
         super();
         this.state = {
             scrollY: new Animated.Value(0),
             index: 0,
             routes: [
-                { key: "profile", title: "Profile" },
-                { key: "booking", title: "Booking" },
-                { key: "payment", title: "Payment" }
+                { key: "profile", title: "History" },
+                { key: "booking", title: "Recent" },
+                { key: "payment", title: "Certificate" }
             ],
-            userData: UserData[0]
+            userData: UserData[0],
+            loading: false
         };
+    }
+
+    /**
+     * @description Simple logout with Redux 
+     * @author Passion UI <passionui.com>
+     * @date 2019-08-03
+     */
+    onLogOut() {
+        this.setState(
+            {
+                loading: true
+            },
+            () => {
+                this.props.actions.authentication(false, response => {
+                    if (response.success) {
+                        this.props.navigation.navigate("Loading");
+                    } else {
+                        this.setState({ loading: false });
+                    }
+                });
+            }
+        );
     }
 
     _handleIndexChange = index =>
@@ -63,7 +90,7 @@ export default class Profile4 extends Component {
         switch (route.key) {
             case "booking":
                 return (
-                    <BookingTab
+                    <PaymentTab
                         jumpTo={jumpTo}
                         navigation={this.props.navigation}
                     />
@@ -104,7 +131,7 @@ export default class Profile4 extends Component {
                 forceInset={{ top: "always" }}
             >
                 <Header
-                    title="Profile4"
+                    title="Profile"
                     renderLeft={() => {
                         return (
                             <Icon
@@ -184,6 +211,18 @@ export default class Profile4 extends Component {
                         renderTabBar={this._renderTabBar}
                         onIndexChange={this._handleIndexChange}
                     />
+                    <View style={styles.contain}>
+                        <View style={{ width: "100%" }}>
+                            <Button
+                                full
+                                loading={this.state.loading}
+                                style={{ marginTop: 20 }}
+                                onPress={() => this.onLogOut()}
+                            >
+                                Sign Out
+                            </Button>
+                        </View>
+                    </View>
                 </ScrollView>
             </SafeAreaView>
         );
@@ -375,3 +414,18 @@ class PaymentTab extends Component {
         return <View style={{ marginTop: 20 }} />;
     }
 }
+
+const mapStateToProps = state => {
+    return {};
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        actions: bindActionCreators(AuthActions, dispatch)
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Profile4);

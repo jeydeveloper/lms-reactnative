@@ -127,7 +127,7 @@ class Walkthrough extends Component {
                                             style={styles.img}
                                         />
                                         <Text body1 style={styles.textSlide}>
-                                            Welcome to LMS V3
+                                            LMS V3
                                         </Text>
                                     </View>
                                 );
@@ -146,7 +146,7 @@ class Walkthrough extends Component {
                             });
                         }}
                         autoCorrect={false}
-                        placeholder="Username"
+                        placeholder="test"
                         placeholderTextColor={
                             this.state.success.id
                                 ? BaseColor.grayColor
@@ -169,7 +169,7 @@ class Walkthrough extends Component {
                             });
                         }}
                         autoCorrect={false}
-                        placeholder="Password"
+                        placeholder="123456"
                         secureTextEntry={true}
                         placeholderTextColor={
                             this.state.success.password

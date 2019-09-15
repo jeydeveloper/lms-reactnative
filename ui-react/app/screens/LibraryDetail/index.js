@@ -11,14 +11,14 @@ import {
 import styles from "./styles";
 
 // Load sample data
-import { PostData } from "@data";
+import { PostDetailData } from "@data";
 
 export default class Post extends Component {
     constructor(props) {
         super(props);
         this.state = {
             refreshing: false,
-            posts: PostData
+            posts: PostDetailData
         };
     }
 
@@ -30,7 +30,7 @@ export default class Post extends Component {
                 forceInset={{ top: "always" }}
             >
                 <Header
-                    title="Library"
+                    title="Enhancement"
                     subTitle="What do you want to learn today"
                     renderLeft={() => {
                         return (
