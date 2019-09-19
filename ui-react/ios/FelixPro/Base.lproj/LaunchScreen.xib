@@ -23,8 +23,8 @@
                     </constraints>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" red="0.89803921568627454" green="0.38823529411764707" blue="0.30196078431372547" alpha="1" colorSpace="calibratedRGB"/>
-            <color key="tintColor" red="0.89803921568627454" green="0.38823529411764707" blue="0.30196078431372547" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.019607843137254902" green="0.40000000000000002" blue="0.74509803921568629" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="tintColor" red="0.019607843140000001" green="0.40000000000000002" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="30A-Cx-Wok" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="fGW-Qi-KBi"/>
                 <constraint firstItem="30A-Cx-Wok" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="yWJ-UW-9OJ"/>
