@@ -31,6 +31,7 @@ target 'FelixPro' do
   pod 'Google-Maps-iOS-Utils'
 
   use_native_modules!
+
   pod 'RNFastImage', :path => '../node_modules/react-native-fast-image'
 
 end
