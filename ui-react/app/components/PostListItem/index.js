@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 
 export default class PostListItem extends Component {
     render() {
-        const { style, title, description, date, onPress, image } = this.props;
+        const { style, title, description, date, onPress, image, assignedBy } = this.props;
         return (
             <TouchableOpacity
                 style={[styles.contain, style]}
@@ -31,6 +31,12 @@ export default class PostListItem extends Component {
                         >
                             {description}
                         </Text>
+                        <Text 
+                            caption2
+                            grayColor
+                        >
+                            {assignedBy}
+                        </Text>
                     </View>
                     {date != "" && (
                         <View style={styles.contentDate}>
@@ -51,6 +57,7 @@ PostListItem.propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
     date: PropTypes.string,
+    assignedBy: PropTypes.string,
     onPress: PropTypes.func
 };
 

@@ -73,7 +73,7 @@ export default class Post extends Component {
                             image={item.image}
                             title={item.title}
                             description={item.description}
-                            onPress={() => navigation.navigate("HotelDetail")}
+                            onPress={() => navigation.navigate("PostDetail")}
                             onPressLike={() => {}}
                             onPressFavouriteRemove={() => {}}
                             buttonTitle="Add Favourite"

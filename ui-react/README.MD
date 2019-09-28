@@ -29,6 +29,7 @@ Notes:
 	- export PATH=$PATH:~/Library/Android/sdk/emulator/
 	- export PATH=$PATH:~/Library/Android/sdk/tools/
 	- export PATH=$PATH:~/Library/Android/sdk/tools/bin/
+- emulator -avd Nexus_5X_API_24
 - adb close emulator : adb emu kill
 - if not exists file "debug.keystore" folder "./android/app" : cd android/app > keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000
 

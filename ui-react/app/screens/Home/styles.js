@@ -1,4 +1,5 @@
-import { StyleSheet } from "react-native";
+import React from "react";
+import { StyleSheet, Platform } from "react-native";
 import { BaseColor } from "@config";
 import * as Utils from "@utils";
 
@@ -38,6 +39,12 @@ export default StyleSheet.create({
     promotionItem: {
         borderRadius: 8,
         width: Utils.scaleWithPixel(200),
-        height: Utils.scaleWithPixel(250)
+        height: Utils.scaleWithPixel(150)
+    },
+    myAssignmentItem: {
+        width: Utils.scaleWithPixel(280)
+    },
+    blockView: {
+        paddingVertical: 10
     }
 });

@@ -11,7 +11,7 @@ import {
     Image,
     Text,
     Icon,
-    HotelItem,
+    PostListItem,
     Card,
     Button,
     SafeAreaView
@@ -47,7 +47,34 @@ export default class Home extends Component {
             mandatory: MandatoryData,
             tours: TourData,
             hotels: HotelData,
-            heightHeader: Utils.heightHeader()
+            heightHeader: Utils.heightHeader(),
+            todo: [
+                {
+                    id: "1",
+                    title: "South Travon",
+                    image: Images.trip1
+                },
+                {
+                    id: "2",
+                    title: "South Travon",
+                    image: Images.trip2
+                },
+                {
+                    id: "3",
+                    title: "South Travon",
+                    image: Images.trip3
+                },
+                {
+                    id: "4",
+                    title: "South Travon",
+                    image: Images.trip4
+                },
+                {
+                    id: "5",
+                    title: "South Travon",
+                    image: Images.trip5
+                }
+            ],
         };
         this._deltaY = new Animated.Value(0);
     }
@@ -84,7 +111,7 @@ export default class Home extends Component {
 
     render() {
         const { navigation } = this.props;
-        const { favourite, enhancement, mandatory, tours, hotels, heightHeader } = this.state;
+        const { favourite, enhancement, mandatory, tours, hotels, heightHeader, todo } = this.state;
         const heightImageBanner = Utils.scaleWithPixel(140);
         const marginTopBanner = (heightImageBanner - heightHeader) - 50;
         return (
@@ -184,13 +211,88 @@ export default class Home extends Component {
                             </View>
                         </View>
                         <View>
-                            <Text
-                                title3
-                                semibold
-                                style={{ marginLeft: 20, marginVertical: 10 }}
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    justifyContent: "space-between",
+                                    alignItems: "flex-end"
+                                }}
                             >
-                                My Favourite
-                            </Text>
+                                <Text
+                                    title3
+                                    semibold
+                                    style={{ marginLeft: 20, marginVertical: 10 }}
+                                >
+                                    My Assignment
+                                </Text>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        navigation.navigate("Coupons");
+                                    }}
+                                >
+                                    <Text 
+                                    caption1 
+                                    grayColor
+                                    style={{ marginRight: 20, marginVertical: 10 }}
+                                    >
+                                        Show More
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                            <FlatList
+                                horizontal={true}
+                                showsHorizontalScrollIndicator={false}
+                                data={todo}
+                                keyExtractor={(item, index) => item.id}
+                                renderItem={({ item, index }) => (
+                                    <PostListItem
+                                        style={[
+                                            styles.myAssignmentItem,
+                                            index == 0
+                                                ? { marginHorizontal: 20 }
+                                                : { marginRight: 20 }
+                                        ]}
+                                        title="Strengthening Courage"
+                                        date="Past Due : 30/09/2019"
+                                        description="A short course on Risk Taking"
+                                        assignedBy="Assigned By: Wisman Tjiardy"
+                                        image={item.image}
+                                        onPress={() => {
+                                            navigation.navigate("PostDetail");
+                                        }}
+                                    />
+                                )}
+                            />
+                        </View>
+                        <View>
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    justifyContent: "space-between",
+                                    alignItems: "flex-end"
+                                }}
+                            >
+                                <Text
+                                    title3
+                                    semibold
+                                    style={{ marginLeft: 20, marginVertical: 10 }}
+                                >
+                                    Recently Viewed
+                                </Text>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        navigation.navigate("HotelDetail");
+                                    }}
+                                >
+                                    <Text 
+                                    caption1 
+                                    grayColor
+                                    style={{ marginRight: 20, marginVertical: 10 }}
+                                    >
+                                        Show More
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
                             <FlatList
                                 horizontal={true}
                                 showsHorizontalScrollIndicator={false}
@@ -206,45 +308,10 @@ export default class Home extends Component {
                                         ]}
                                         image={item.image}
                                         onPress={() =>
-                                            navigation.navigate("HotelDetail")
+                                            navigation.navigate("PostDetail")
                                         }
                                         onPressLike={() => {}}
                                         onPressFavouriteRemove={() => {}}
-                                        title1={item.title1}
-                                        title2={item.title2}
-                                        buttonTitle="Remove Favourite"
-                                    >
-                                    </Card>
-                                )}
-                            />
-                        </View>
-                        <View>
-                            <Text
-                                title3
-                                semibold
-                                style={{ marginLeft: 20, marginVertical: 10 }}
-                            >
-                                Enhancement
-                            </Text>
-                            <FlatList
-                                horizontal={true}
-                                showsHorizontalScrollIndicator={false}
-                                data={enhancement}
-                                keyExtractor={(item, index) => item.id}
-                                renderItem={({ item, index }) => (
-                                    <Card
-                                        style={[
-                                            styles.promotionItem,
-                                            index == 0
-                                                ? { marginHorizontal: 20 }
-                                                : { marginRight: 20 }
-                                        ]}
-                                        image={item.image}
-                                        onPress={() =>
-                                            navigation.navigate("HotelDetail")
-                                        }
-                                        onPressLike={() => {}}
-                                        onPressFavourite={() => {}}
                                         title1={item.title1}
                                         title2={item.title2}
                                         buttonTitle="Add Favourite"
@@ -254,13 +321,34 @@ export default class Home extends Component {
                             />
                         </View>
                         <View>
-                            <Text
-                                title3
-                                semibold
-                                style={{ marginLeft: 20, marginVertical: 10 }}
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    justifyContent: "space-between",
+                                    alignItems: "flex-end"
+                                }}
                             >
-                                Mandatory
-                            </Text>
+                                <Text
+                                    title3
+                                    semibold
+                                    style={{ marginLeft: 20, marginVertical: 10 }}
+                                >
+                                    My Favourite
+                                </Text>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        navigation.navigate("HotelDetail");
+                                    }}
+                                >
+                                    <Text 
+                                    caption1 
+                                    grayColor
+                                    style={{ marginRight: 20, marginVertical: 10 }}
+                                    >
+                                        Show More
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
                             <FlatList
                                 horizontal={true}
                                 showsHorizontalScrollIndicator={false}
@@ -282,11 +370,184 @@ export default class Home extends Component {
                                         onPressFavourite={() => {}}
                                         title1={item.title1}
                                         title2={item.title2}
+                                        buttonTitle="Removed Favourite"
+                                    >
+                                    </Card>
+                                )}
+                            />
+                        </View>
+                        <View>
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    justifyContent: "space-between",
+                                    alignItems: "flex-end"
+                                }}
+                            >
+                                <Text
+                                    title3
+                                    semibold
+                                    style={{ marginLeft: 20, marginVertical: 10 }}
+                                >
+                                    Business Planning & Analysis
+                                </Text>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        navigation.navigate("HotelDetail");
+                                    }}
+                                >
+                                    <Text 
+                                    caption1 
+                                    grayColor
+                                    style={{ marginRight: 20, marginVertical: 10 }}
+                                    >
+                                        Show More
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                            <FlatList
+                                horizontal={true}
+                                showsHorizontalScrollIndicator={false}
+                                data={favourite}
+                                keyExtractor={(item, index) => item.id}
+                                renderItem={({ item, index }) => (
+                                    <Card
+                                        style={[
+                                            styles.promotionItem,
+                                            index == 0
+                                                ? { marginHorizontal: 20 }
+                                                : { marginRight: 20 }
+                                        ]}
+                                        image={item.image}
+                                        onPress={() =>
+                                            navigation.navigate("PostDetail")
+                                        }
+                                        onPressLike={() => {}}
+                                        onPressFavouriteRemove={() => {}}
+                                        title1={item.title1}
+                                        title2={item.title2}
                                         buttonTitle="Add Favourite"
                                     >
                                     </Card>
                                 )}
                             />
+                        </View>
+                        <View>
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    justifyContent: "space-between",
+                                    alignItems: "flex-end"
+                                }}
+                            >
+                                <Text
+                                    title3
+                                    semibold
+                                    style={{ marginLeft: 20, marginVertical: 10 }}
+                                >
+                                    Human Resources
+                                </Text>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        navigation.navigate("HotelDetail");
+                                    }}
+                                >
+                                    <Text 
+                                    caption1 
+                                    grayColor
+                                    style={{ marginRight: 20, marginVertical: 10 }}
+                                    >
+                                        Show More
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                            <FlatList
+                                horizontal={true}
+                                showsHorizontalScrollIndicator={false}
+                                data={favourite}
+                                keyExtractor={(item, index) => item.id}
+                                renderItem={({ item, index }) => (
+                                    <Card
+                                        style={[
+                                            styles.promotionItem,
+                                            index == 0
+                                                ? { marginHorizontal: 20 }
+                                                : { marginRight: 20 }
+                                        ]}
+                                        image={item.image}
+                                        onPress={() =>
+                                            navigation.navigate("PostDetail")
+                                        }
+                                        onPressLike={() => {}}
+                                        onPressFavouriteRemove={() => {}}
+                                        title1={item.title1}
+                                        title2={item.title2}
+                                        buttonTitle="Add Favourite"
+                                    >
+                                    </Card>
+                                )}
+                            />
+                        </View>
+                        <View>
+                            <View
+                                style={{
+                                    flexDirection: "row",
+                                    justifyContent: "space-between",
+                                    alignItems: "flex-end"
+                                }}
+                            >
+                                <Text
+                                    title3
+                                    semibold
+                                    style={{ marginLeft: 20, marginVertical: 10 }}
+                                >
+                                    Recommended For You
+                                </Text>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        navigation.navigate("HotelDetail");
+                                    }}
+                                >
+                                    <Text 
+                                    caption1 
+                                    grayColor
+                                    style={{ marginRight: 20, marginVertical: 10 }}
+                                    >
+                                        Show More
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View
+                                style={{paddingHorizontal: 20}}
+                            >
+                                <PostListItem
+                                    title="See The Unmatched"
+                                    description="Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui Donec rutrum congue leo eget malesuada."
+                                    style={{ width: '100%' }}
+                                    image={Images.trip9}
+                                    onPress={() => {
+                                        navigation.navigate("PostDetail");
+                                    }}
+                                />
+                                <PostListItem
+                                    description="Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui Donec rutrum congue leo eget malesuada"
+                                    title="Top 15 Things Must To Do"
+                                    style={{ marginTop: 10, width: '100%' }}
+                                    image={Images.trip8}
+                                    onPress={() => {
+                                        navigation.navigate("PostDetail");
+                                    }}
+                                />
+                                <PostListItem
+                                    description="Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui Donec rutrum congue leo eget malesuada"
+                                    title="Things Must To Do"
+                                    style={{ marginVertical: 10, width: '100%' }}
+                                    image={Images.trip8}
+                                    onPress={() => {
+                                        navigation.navigate("PostDetail");
+                                    }}
+                                />
+                            </View>
                         </View>
                     </ScrollView>
                 </SafeAreaView>

@@ -12,7 +12,7 @@ export default StyleSheet.create({
         paddingHorizontal: 12,
         paddingVertical: 7,
         borderBottomColor: BaseColor.whiteColor,
-        backgroundColor: BaseColor.lightPrimaryColor,
+        backgroundColor: BaseColor.primaryColor,
         borderTopRightRadius: 8,
         borderTopLeftRadius: 8
     },
@@ -25,5 +25,5 @@ export default StyleSheet.create({
         borderBottomRightRadius: 8,
         borderBottomLeftRadius: 8
     },
-    mainContent: { backgroundColor: BaseColor.lightPrimaryColor, padding: 12 }
+    mainContent: { backgroundColor: BaseColor.primaryColor, padding: 12 }
 });

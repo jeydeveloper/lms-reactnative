@@ -54,13 +54,13 @@ export default class PostDetail extends Component {
                     forceInset={{ top: "always" }}
                 >
                     <Header
-                        title=""
+                        title="Lorem Ipsum Dolor"
                         renderLeft={() => {
                             return (
                                 <Icon
                                     name="arrow-left"
                                     size={20}
-                                    color={BaseColor.whiteColor}
+                                    color={BaseColor.primaryColor}
                                 />
                             );
                         }}
@@ -148,113 +148,6 @@ export default class PostDetail extends Component {
                                     { image: Images.profile3 },
                                     { image: Images.profile4 }
                                 ]}
-                            />
-                            <View
-                                style={{
-                                    flexDirection: "row",
-                                    justifyContent: "space-between",
-                                    marginTop: 20
-                                }}
-                            >
-                                <Text headline semibold>
-                                    Top experiences
-                                </Text>
-                                <Text footnote grayColor>
-                                    Show more
-                                </Text>
-                            </View>
-                            {/* Image gallery */}
-                            <View style={styles.contentImageFollowing}>
-                                <View style={{ flex: 4, marginRight: 10 }}>
-                                    <Card
-                                        style={{ borderRadius: 8 }}
-                                        image={Images.trip7}
-                                    >
-                                        <Text headline semibold whiteColor>
-                                            Dallas
-                                        </Text>
-                                    </Card>
-                                </View>
-                                <View style={{ flex: 6 }}>
-                                    <View style={{ flex: 1 }}>
-                                        <Card
-                                            style={{ borderRadius: 8 }}
-                                            image={Images.trip3}
-                                        >
-                                            <Text headline semibold whiteColor>
-                                                Warsaw
-                                            </Text>
-                                        </Card>
-                                    </View>
-                                    <View
-                                        style={{
-                                            flex: 1,
-                                            flexDirection: "row",
-                                            marginTop: 10
-                                        }}
-                                    >
-                                        <View
-                                            style={{ flex: 6, marginRight: 10 }}
-                                        >
-                                            <Card
-                                                style={{
-                                                    borderRadius: 8
-                                                }}
-                                                image={Images.trip4}
-                                            >
-                                                <Text
-                                                    headline
-                                                    semibold
-                                                    whiteColor
-                                                >
-                                                    Yokohama
-                                                </Text>
-                                            </Card>
-                                        </View>
-                                        <View style={{ flex: 4 }}>
-                                            <Card
-                                                style={{ borderRadius: 8 }}
-                                                image={Images.trip6}
-                                            >
-                                                <Text
-                                                    headline
-                                                    semibold
-                                                    whiteColor
-                                                >
-                                                    10+
-                                                </Text>
-                                            </Card>
-                                        </View>
-                                    </View>
-                                </View>
-                            </View>
-                            {/* Featured Posts */}
-                            <Text
-                                headline
-                                semibold
-                                style={{
-                                    marginTop: 20
-                                }}
-                            >
-                                Featured Posts
-                            </Text>
-                            <PostListItem
-                                title="See The Unmatched"
-                                description="Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat. Sed porttitor lectus nibh. Nulla quis lorem ut libero malesuada feugiat. Quisque velit nisi, pretium ut lacinia in, elementum id enim."
-                                style={{ marginTop: 10, width: '100%' }}
-                                image={Images.trip9}
-                                onPress={() => {
-                                    navigation.navigate("Post");
-                                }}
-                            />
-                            <PostListItem
-                                description="Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui Donec rutrum congue leo eget malesuada. Vivamus suscipit tortor eget felis porttitor volutpat. Sed porttitor lectus nibh. Nulla quis lorem ut libero malesuada feugiat. Quisque velit nisi, pretium ut lacinia in, elementum id enim."
-                                title="Top 15 Things Must To Do"
-                                style={{ marginTop: 10, width: '100%' }}
-                                image={Images.trip8}
-                                onPress={() => {
-                                    navigation.navigate("Post");
-                                }}
                             />
                         </View>
                     </ScrollView>

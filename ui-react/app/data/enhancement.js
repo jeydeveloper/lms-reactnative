@@ -2,7 +2,7 @@ import { Images } from "@config";
 const EnhancementData = [
     {
         id: "1",
-        image: Images.room6,
+        image: Images.room9,
         title1: "Enhancement",
         title2: "Lorem ipsum dolor"
     },

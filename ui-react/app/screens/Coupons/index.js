@@ -33,10 +33,11 @@ export default class Coupons extends Component {
                 name={item.name}
                 code={item.code}
                 description={item.description}
+                assignedBy={item.assignedBy}
                 valid={item.valid}
                 remain={item.remain}
                 onPress={() => {
-                    this.props.navigation.navigate("HotelDetail");
+                    this.props.navigation.navigate("PostDetail");
                 }}
             />
         );
@@ -51,7 +52,7 @@ export default class Coupons extends Component {
                 forceInset={{ top: "always" }}
             >
                 <Header
-                    title="Coupons"
+                    title="My Assignment"
                     renderLeft={() => {
                         return (
                             <Icon
@@ -68,12 +69,6 @@ export default class Coupons extends Component {
                                     size="small"
                                     color={BaseColor.primaryColor}
                                 />
-                            );
-                        } else {
-                            return (
-                                <Text headline primaryColor>
-                                    Save
-                                </Text>
                             );
                         }
                     }}

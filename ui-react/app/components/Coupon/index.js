@@ -6,7 +6,7 @@ import styles from "./styles";
 
 export default class Coupon extends Component {
     render() {
-        const { style, name, code, description, valid, remain, onPress} = this.props;
+        const { style, name, code, description, valid, remain, onPress, assignedBy} = this.props;
         return (
             <TouchableOpacity style={[styles.contain, style]}
                 onPress={onPress}
@@ -17,11 +17,17 @@ export default class Coupon extends Component {
                     </Text>
                 </View>
                 <View style={styles.mainContent}>
-                    <Text header whiteColor>
+                    <Text headline whiteColor>
                         {code}
                     </Text>
                     <Text body2 whiteColor>
                         {description}
+                    </Text>
+                    <Text 
+                        caption2
+                        whiteColor
+                    >
+                        {assignedBy}
                     </Text>
                 </View>
                 <View style={styles.validContent}>
@@ -40,6 +46,7 @@ export default class Coupon extends Component {
 Coupon.propTypes = {
     style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
     code: PropTypes.string,
+    assignedBy: PropTypes.string,
     description: PropTypes.string,
     valid: PropTypes.string,
     remain: PropTypes.string,
@@ -50,6 +57,7 @@ Coupon.defaultProps = {
     style: {},
     name: "",
     code: "",
+    assignedBy: "",
     description: "",
     valid: "",
     remain: "",

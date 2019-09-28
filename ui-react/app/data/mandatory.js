@@ -2,7 +2,7 @@ import { Images } from "@config";
 const MandatoryData = [
     {
         id: "1",
-        image: Images.room6,
+        image: Images.room9,
         title1: "Mandatory",
         title2: "Noluisse ponderum"
     },
