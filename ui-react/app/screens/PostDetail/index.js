@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, ScrollView, Animated } from "react-native";
+import { View, ScrollView, Animated, TouchableOpacity } from "react-native";
 import { BaseStyle, BaseColor, Images } from "@config";
 import {
     Header,
@@ -9,7 +9,8 @@ import {
     ProfileAuthor,
     ProfileGroup,
     Card,
-    PostListItem
+    PostListItem,
+    Button
 } from "@components";
 import * as Utils from "@utils";
 import styles from "./styles";
@@ -30,7 +31,7 @@ export default class PostDetail extends Component {
         return (
             <View style={{ flex: 1 }}>
                 <Animated.Image
-                    source={Images.room6}
+                    source={Images.room8}
                     style={[
                         styles.imgBanner,
                         {
@@ -102,17 +103,66 @@ export default class PostDetail extends Component {
                                 whiteColor
                                 numberOfLines={1}
                             >
-                                Ready Fast For Fall Leaf Viewing Trips?
+                                
                             </Text>
-                            <ProfileAuthor
-                                image={Images.profile2}
-                                name="Steve Garrett"
-                                description="5 hours ago | 100k views"
-                                textRight="Jun 2018"
+                            <View
                                 style={{
-                                    marginTop: 20
+                                    flexDirection: "row",
+                                    justifyContent: "space-between",
+                                    marginTop: 10,
+                                    borderBottomColor: BaseColor.textSecondaryColor,
+                                    borderBottomWidth: 1,
+                                    paddingVertical: 10
                                 }}
-                            />
+                            >
+                                <View>
+                                    <Button
+                                        style={{
+                                            height: 25,
+                                            borderRadius: 3,
+                                            paddingHorizontal: 10,
+                                            paddingVertical: 5
+                                        }}
+                                        onPress={() => {}}
+                                    >
+                                        <Text body2 semibold whiteColor>
+                                            Add Favourite
+                                        </Text>
+                                    </Button>
+                                </View>
+                                <View 
+                                    style={{
+                                        flexDirection: "row",
+                                        justifyContent: "space-between"
+                                    }}
+                                >
+                                    <TouchableOpacity
+                                        onPress={() => {}}
+                                        activeOpacity={0.9}
+                                    >
+                                        <Icon name="heart" size={18} />
+                                    </TouchableOpacity>
+                                    <Text
+                                        caption1
+                                        grayColor
+                                        style={{
+                                            marginLeft: 3
+                                        }}
+                                        numberOfLines={1}
+                                    >
+                                        100
+                                    </Text>
+                                </View>
+                            </View>
+                            <Text
+                                headline
+                                semibold
+                                style={{
+                                    marginTop: 10
+                                }}
+                            >
+                                About This:
+                            </Text>
                             <Text body2>
                                 Lorem ipsum dolor sit amet, consectetur
                                 adipiscing elit. Donec rutrum congue leo eget
@@ -135,22 +185,66 @@ export default class PostDetail extends Component {
                                 headline
                                 semibold
                                 style={{
-                                    marginTop: 20
+                                    marginTop: 10
                                 }}
                             >
-                                User Following
+                                Prerequisites:
                             </Text>
-                            <ProfileGroup
-                                name="Steve, Lincoln, Harry"
-                                detail="and 15 people like this"
-                                users={[
-                                    { image: Images.profile1 },
-                                    { image: Images.profile3 },
-                                    { image: Images.profile4 }
-                                ]}
-                            />
+                            <Text body2>
+                                None
+                            </Text>
+                            <Text
+                                headline
+                                semibold
+                                style={{
+                                    marginTop: 10
+                                }}
+                            >
+                                Expertise:
+                            </Text>
+                            <Text body2>
+                                Everyone
+                            </Text>
+                            <Text
+                                headline
+                                semibold
+                                style={{
+                                    marginTop: 10
+                                }}
+                            >
+                                Objectives:
+                            </Text>
+                            <Text body2>
+                                Lorem ipsum dolor sit amet, consectetur
+                                adipiscing elit. Donec rutrum congue leo eget
+                                malesuada.
+                            </Text>
                         </View>
                     </ScrollView>
+                    <View style={styles.contentButtonBottom}>
+                        <View
+                            style={{
+                                justifyContent: "space-between"
+                            }}
+                        >
+                            <Button
+                                style={{ height: 30 }}
+                                onPress={() =>
+                                    navigation.navigate("PostTest")
+                                }
+                            >
+                                Pre Test
+                            </Button>
+                        </View>
+                        <Button
+                            style={{ height: 30, backgroundColor: BaseColor.lightPrimaryColor }}
+                            onPress={() =>
+                                navigation.navigate("PostTest")
+                            }
+                        >
+                            Post Test
+                        </Button>
+                    </View>
                 </SafeAreaView>
             </View>
         );

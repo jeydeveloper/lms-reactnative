@@ -26,6 +26,8 @@ import HotelDetail from "@screens/LibraryDetail";
 import PostDetail from "@screens/PostDetail";
 import Post from "@screens/Post";
 import Coupons from "@screens/Coupons";
+import PostTest from "@screens/PostTest";
+import PostTestResult from "@screens/PostTestResult";
 
 // Transition for navigation by screen name
 const handleCustomTransition = ({ scenes }) => {
@@ -155,6 +157,12 @@ const StackNavigator = createStackNavigator(
         },
         Coupons: {
             screen: Coupons
+        },
+        PostTest: {
+            screen: PostTest
+        },
+        PostTestResult: {
+            screen: PostTestResult
         },
     },
     {

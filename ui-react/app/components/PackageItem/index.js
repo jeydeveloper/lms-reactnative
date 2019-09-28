@@ -137,40 +137,31 @@ export default class PackageItem extends Component {
             <View style={[styles.contain, style]}>
                 <View style={styles.packageTitleContent}>
                     <Text title2 semibold>
-                        {packageName}
-                    </Text>
-                </View>
-                <View style={styles.contentPrice}>
-                    <Text title1 primaryColor semibold>
-                        {price}
-                    </Text>
-                    <Text
-                        footnote
-                        accentColor
-                        style={{
-                            marginLeft: 10,
-                            alignSelf: "flex-end"
-                        }}
-                    >
-                        {type}
+                        Congratulations!
                     </Text>
                 </View>
                 <Text body2 numberOfLines={5} style={{ marginVertical: 10 }}>
-                    {description}
+                    You have done the test.
                 </Text>
-                {services.map((item, index) => (
-                    <View style={styles.containItem} key={item.package}>
-                        <Text headline accentColor style={{ marginBottom: 6 }}>
-                            {item.name}
-                        </Text>
-                        <Text body2 grayColor>
-                            {item.desc}
-                        </Text>
-                    </View>
-                ))}
+                <View style={styles.containItem}>
+                    <Text headline accentColor style={{ marginBottom: 6 }}>
+                        80%
+                    </Text>
+                    <Text body2 grayColor>
+                        Your Score
+                    </Text>
+                </View>
+                <View style={styles.containItem}>
+                    <Text headline accentColor style={{ marginBottom: 6 }}>
+                        70%
+                    </Text>
+                    <Text body2 grayColor>
+                        Minimum Score
+                    </Text>
+                </View>
 
                 <Button full style={{ marginTop: 10 }} onPress={onPress}>
-                    Book Now
+                    Done
                 </Button>
             </View>
         );
