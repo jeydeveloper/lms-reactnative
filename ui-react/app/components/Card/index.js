@@ -33,7 +33,7 @@ export default class Card extends Component {
                     <Text subhead whiteColor>
                         {title1}
                     </Text>
-                    <Text title2 whiteColor semibold>
+                    <Text headline whiteColor semibold>
                         {title2}
                     </Text>
                     <View

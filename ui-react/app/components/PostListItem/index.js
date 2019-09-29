@@ -17,7 +17,7 @@ export default class PostListItem extends Component {
                 <View style={styles.content}>
                     {title != "" && (
                         <View style={styles.contentTitle}>
-                            <Text headline semibold>
+                            <Text subhead semibold>
                                 {title}
                             </Text>
                         </View>
@@ -27,7 +27,7 @@ export default class PostListItem extends Component {
                             body2
                             grayColor
                             numberOfLines={5}
-                            style={{ paddingVertical: 5 }}
+                            style={{ paddingTop: 5 }}
                         >
                             {description}
                         </Text>

@@ -219,7 +219,7 @@ export default class Home extends Component {
                                 }}
                             >
                                 <Text
-                                    title3
+                                    headline
                                     semibold
                                     style={{ marginLeft: 20, marginVertical: 10 }}
                                 >
@@ -273,7 +273,7 @@ export default class Home extends Component {
                                 }}
                             >
                                 <Text
-                                    title3
+                                    headline
                                     semibold
                                     style={{ marginLeft: 20, marginVertical: 10 }}
                                 >
@@ -329,7 +329,7 @@ export default class Home extends Component {
                                 }}
                             >
                                 <Text
-                                    title3
+                                    headline
                                     semibold
                                     style={{ marginLeft: 20, marginVertical: 10 }}
                                 >
@@ -385,7 +385,7 @@ export default class Home extends Component {
                                 }}
                             >
                                 <Text
-                                    title3
+                                    headline
                                     semibold
                                     style={{ marginLeft: 20, marginVertical: 10 }}
                                 >
@@ -441,7 +441,7 @@ export default class Home extends Component {
                                 }}
                             >
                                 <Text
-                                    title3
+                                    headline
                                     semibold
                                     style={{ marginLeft: 20, marginVertical: 10 }}
                                 >
@@ -497,7 +497,7 @@ export default class Home extends Component {
                                 }}
                             >
                                 <Text
-                                    title3
+                                    headline
                                     semibold
                                     style={{ marginLeft: 20, marginVertical: 10 }}
                                 >
