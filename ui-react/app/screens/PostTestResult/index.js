@@ -28,7 +28,7 @@ export default class PostTestResult extends Component {
             >
                 <Header
                     title="Post Test Result"
-                    subTitle="Lorem Ipsum Dolor"
+                    subTitle="Strengthening Courage"
                 />
                 <ScrollView>
                     <View style={styles.contain}>

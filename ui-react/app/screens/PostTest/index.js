@@ -40,7 +40,7 @@ export default class PostTest extends Component {
             >
                 <Header
                     title="Post Test"
-                    subTitle="Lorem Ipsum Dolor"
+                    subTitle="Strengthening Courage"
                     renderLeft={() => {
                         return (
                             <Icon

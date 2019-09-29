@@ -5,9 +5,9 @@ import * as Utils from "@utils";
 export default StyleSheet.create({
     containField: {
         margin: 20,
-        marginTop: 90,
+        marginTop: 70,
         flexDirection: "row",
-        height: 140,
+        height: 120,
         backgroundColor: BaseColor.fieldColor,
         borderRadius: 10
     },

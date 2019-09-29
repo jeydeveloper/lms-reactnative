@@ -55,7 +55,7 @@ export default class PostDetail extends Component {
                     forceInset={{ top: "always" }}
                 >
                     <Header
-                        title="Lorem Ipsum Dolor"
+                        title="Strengthening Courage"
                         renderLeft={() => {
                             return (
                                 <Icon

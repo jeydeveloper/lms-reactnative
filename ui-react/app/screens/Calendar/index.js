@@ -59,7 +59,10 @@ export default class Car extends Component {
                     <Calendar
                       markedDates={{
                         [this.state.currentDate]: {selected: true, selectedColor: 'blue'},
-                        '2019-09-30': {dots: [vacation, massage, workout]}
+                        '2019-09-12': {dots: [vacation, massage, workout]},
+                        '2019-09-17': {dots: [vacation]},
+                        '2019-09-30': {dots: [vacation, workout]},
+                        '2019-10-23': {dots: [vacation, massage]},
                       }}
                       markingType={'multi-dot'}
                     />

@@ -8,7 +8,7 @@ import {
     TouchableOpacity
 } from "react-native";
 import { BaseStyle, BaseColor, Images } from "@config";
-import { Header, SafeAreaView, Icon, Text, Tag, HotelItem, Button } from "@components";
+import { Header, SafeAreaView, Icon, Text, Tag, HotelItem, Button, PostListItem } from "@components";
 import { TabView, TabBar } from "react-native-tab-view";
 import { UserData, HotelData } from "@data";
 import * as Utils from "@utils";
@@ -90,7 +90,7 @@ class Profile extends Component {
         switch (route.key) {
             case "booking":
                 return (
-                    <PaymentTab
+                    <ProfileTab
                         jumpTo={jumpTo}
                         navigation={this.props.navigation}
                     />
@@ -104,7 +104,7 @@ class Profile extends Component {
                 );
             case "payment":
                 return (
-                    <PaymentTab
+                    <ProfileTab
                         jumpTo={jumpTo}
                         navigation={this.props.navigation}
                     />
@@ -145,85 +145,71 @@ class Profile extends Component {
                         navigation.goBack();
                     }}
                 />
-                <ScrollView
-                    scrollEventThrottle={8}
-                    onScroll={Animated.event([
-                        {
-                            nativeEvent: {
-                                contentOffset: { y: this.state.scrollY }
-                            }
-                        }
-                    ])}
-                >
-                    <View style={styles.containField}>
-                        <View style={styles.contentLeftItem}>
-                            <Text title2 semibold>
-                                {userData.performance[2].value}
-                            </Text>
-                            <Text caption1 grayColor>
-                                {userData.performance[2].title}
-                            </Text>
-                        </View>
-                        <View
-                            style={{
-                                flex: 2,
-                                alignItems: "center",
-                                justifyContent: "flex-end"
-                            }}
-                        >
-                            <Animated.Image
-                                source={Images.profile2}
-                                style={{
-                                    width: 120,
-                                    height: 120,
-                                    borderRadius: 60,
-                                    position: "absolute",
-                                    alignSelf: "center",
-                                    bottom: 70,
-                                    transform: [
-                                        {
-                                            scale: imageScale
-                                        },
-                                        {
-                                            translateY: imageTranslateY
-                                        }
-                                    ]
-                                }}
-                            />
-                            <Text headline semibold numberOfLines={1}>
-                                {userData.name}
-                            </Text>
-                            <Tag style={styles.tagFollow}>+ Follow</Tag>
-                        </View>
-                        <View style={styles.contentLeftItem}>
-                            <Text title2 semibold>
-                                {userData.performance[1].value}
-                            </Text>
-                            <Text caption1 grayColor>
-                                {userData.performance[1].title}
-                            </Text>
-                        </View>
+                <View style={styles.containField}>
+                    <View style={styles.contentLeftItem}>
+                        <Text title2 semibold>
+                            {userData.performance[2].value}
+                        </Text>
+                        <Text caption1 grayColor>
+                            {userData.performance[2].title}
+                        </Text>
                     </View>
-                    <TabView
-                        lazy
-                        navigationState={this.state}
-                        renderScene={this._renderScene}
-                        renderTabBar={this._renderTabBar}
-                        onIndexChange={this._handleIndexChange}
-                    />
-                    <View style={styles.contain}>
-                        <View style={{ width: "100%" }}>
+                    <View
+                        style={{
+                            flex: 2,
+                            alignItems: "center",
+                            justifyContent: "flex-end"
+                        }}
+                    >
+                        <Animated.Image
+                            source={Images.profile2}
+                            style={{
+                                width: 120,
+                                height: 120,
+                                borderRadius: 60,
+                                position: "absolute",
+                                alignSelf: "center",
+                                bottom: 70,
+                                transform: [
+                                    {
+                                        scale: imageScale
+                                    },
+                                    {
+                                        translateY: imageTranslateY
+                                    }
+                                ]
+                            }}
+                        />
+                        <Text headline semibold numberOfLines={1}>
+                            {userData.name}
+                        </Text>
+                        <View style={{ width: 130, margin: 10 }}>
                             <Button
                                 full
                                 loading={this.state.loading}
-                                style={{ marginTop: 20 }}
+                                style={{ height: 30 }}
                                 onPress={() => this.onLogOut()}
                             >
                                 Sign Out
                             </Button>
                         </View>
                     </View>
-                </ScrollView>
+                    <View style={styles.contentLeftItem}>
+                        <Text title2 semibold>
+                            {userData.performance[1].value}
+                        </Text>
+                        <Text caption1 grayColor>
+                            {userData.performance[1].title}
+                        </Text>
+                    </View>
+                </View>
+                <TabView
+                    lazy
+                    navigationState={this.state}
+                    renderScene={this._renderScene}
+                    renderTabBar={this._renderTabBar}
+                    onIndexChange={this._handleIndexChange}
+                />
             </SafeAreaView>
         );
     }
@@ -291,121 +277,39 @@ class ProfileTab extends Component {
     render() {
         const { navigation } = this.props;
         return (
-            <View style={{ padding: 20 }}>
-                <TouchableOpacity
-                    style={styles.profileItem}
-                    onPress={() => {
-                        navigation.navigate("ProfileEdit");
-                    }}
+            <ScrollView>
+                <View
+                    style={{paddingHorizontal: 20, paddingTop: 20}}
                 >
-                    <Text body1>Edit Profile</Text>
-                    <Icon
-                        name="angle-right"
-                        size={18}
-                        color={BaseColor.primaryColor}
-                        style={{ marginLeft: 5 }}
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.profileItem}
-                    onPress={() => {
-                        navigation.navigate("ChangePassword");
-                    }}
-                >
-                    <Text body1>Change Password</Text>
-                    <Icon
-                        name="angle-right"
-                        size={18}
-                        color={BaseColor.primaryColor}
-                        style={{ marginLeft: 5 }}
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.profileItem}
-                    onPress={() => {
-                        navigation.navigate("ChangeLanguage");
-                    }}
-                >
-                    <Text body1>Language</Text>
-                    <View
-                        style={{
-                            flexDirection: "row",
-                            alignItems: "center"
+                    <PostListItem
+                        title="See The Unmatched"
+                        description="Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui Donec rutrum congue leo eget malesuada."
+                        style={{ width: '100%' }}
+                        image={Images.trip9}
+                        onPress={() => {
+                            navigation.navigate("PostDetail");
                         }}
-                    >
-                        <Text body1 grayColor>
-                            English
-                        </Text>
-                        <Icon
-                            name="angle-right"
-                            size={18}
-                            color={BaseColor.primaryColor}
-                            style={{ marginLeft: 5 }}
-                        />
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.profileItem}
-                    onPress={() => {
-                        navigation.navigate("Currency");
-                    }}
-                >
-                    <Text body1>Currency</Text>
-                    <View
-                        style={{
-                            flexDirection: "row",
-                            alignItems: "center"
+                    />
+                    <PostListItem
+                        description="Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui Donec rutrum congue leo eget malesuada"
+                        title="Top 15 Things Must To Do"
+                        style={{ marginTop: 10, width: '100%' }}
+                        image={Images.trip8}
+                        onPress={() => {
+                            navigation.navigate("PostDetail");
                         }}
-                    >
-                        <Text body1 grayColor>
-                            USD
-                        </Text>
-                        <Icon
-                            name="angle-right"
-                            size={18}
-                            color={BaseColor.primaryColor}
-                            style={{ marginLeft: 5 }}
-                        />
-                    </View>
-                </TouchableOpacity>
-                <View style={styles.profileItem}>
-                    <Text body1>Reminders</Text>
-                    <Switch
-                        name="angle-right"
-                        size={18}
-                        onValueChange={this.toggleSwitch}
-                        value={this.state.reminders}
+                    />
+                    <PostListItem
+                        description="Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui Donec rutrum congue leo eget malesuada"
+                        title="Things Must To Do"
+                        style={{ marginVertical: 10, width: '100%' }}
+                        image={Images.trip8}
+                        onPress={() => {
+                            navigation.navigate("PostDetail");
+                        }}
                     />
                 </View>
-                <TouchableOpacity
-                    style={styles.profileItem}
-                    onPress={() => {
-                        navigation.navigate("BookingHistory");
-                    }}
-                >
-                    <Text body1>Booking History</Text>
-                    <Icon
-                        name="angle-right"
-                        size={18}
-                        color={BaseColor.primaryColor}
-                        style={{ marginLeft: 5 }}
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.profileItem}
-                    onPress={() => {
-                        navigation.navigate("Coupons");
-                    }}
-                >
-                    <Text body1>Coupons</Text>
-                    <Icon
-                        name="angle-right"
-                        size={18}
-                        color={BaseColor.primaryColor}
-                        style={{ marginLeft: 5 }}
-                    />
-                </TouchableOpacity>
-            </View>
+            </ScrollView>
         );
     }
 }
