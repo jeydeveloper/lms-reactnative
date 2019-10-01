@@ -5,6 +5,7 @@
 	};
 	objectVersion = 48;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		024BF34A756F44B0B98C317F /* Raleway-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34E0886882084BB3AEF7FBAC /* Raleway-SemiBoldItalic.ttf */; };
 		0E2CCEA5DF5F4AAE9B3ACE1C /* Raleway-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50211F20F6964F17B609E0D7 /* Raleway-Italic.ttf */; };
@@ -27,7 +28,7 @@
 		C2F0D8C651FE463481BE8A47 /* Raleway-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B01FD514393249CE9B066547 /* Raleway-Regular.ttf */; };
 		E29C169157484997A5B73CCE /* Raleway-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8EB1EB066234ACDBC6E3265 /* Raleway-BoldItalic.ttf */; };
 		E2D90BDC2333F4C000DE58E5 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = E2D90BDB2333F4C000DE58E5 /* main.jsbundle */; };
-		E2D90BDE2333FACA00DE58E5 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = E2D90BDD2333FACA00DE58E5 /* assets */; };
+		E2D90BE72341253700DE58E5 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = E2D90BE62341253600DE58E5 /* assets */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		EEC01AB7140F48F891E49995 /* Raleway-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A445F0BC14CD4EA6AC5AB64D /* Raleway-MediumItalic.ttf */; };
 		EF614D7B04FE475DB37CB484 /* Raleway-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E30E13C60C84659A3A16415 /* Raleway-BlackItalic.ttf */; };
@@ -102,7 +103,7 @@
 		CD4BF96C0DAD41EC97E20652 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		E23387553A504934981AE876 /* Raleway-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Raleway-Bold.ttf"; path = "../app/assets/fonts/Raleway-Bold.ttf"; sourceTree = "<group>"; };
 		E2D90BDB2333F4C000DE58E5 /* main.jsbundle */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		E2D90BDD2333FACA00DE58E5 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
+		E2D90BE62341253600DE58E5 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		E7FDD2C374AC4272A15D7B4E /* Raleway-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Raleway-SemiBold.ttf"; path = "../app/assets/fonts/Raleway-SemiBold.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EF3869240F8240A9830B3CC4 /* Raleway-ExtraLightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Raleway-ExtraLightItalic.ttf"; path = "../app/assets/fonts/Raleway-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
@@ -249,7 +250,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				E2D90BDD2333FACA00DE58E5 /* assets */,
+				E2D90BE62341253600DE58E5 /* assets */,
 				13B07FAE1A68108700A75B9A /* FelixPro */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* FelixProTests */,
@@ -361,7 +362,7 @@
 				024BF34A756F44B0B98C317F /* Raleway-SemiBoldItalic.ttf in Resources */,
 				6721BAF2784643BE808C0002 /* Raleway-Thin.ttf in Resources */,
 				2329EA129E0C45019AD1148F /* Raleway-ThinItalic.ttf in Resources */,
-				E2D90BDE2333FACA00DE58E5 /* assets in Resources */,
+				E2D90BE72341253700DE58E5 /* assets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

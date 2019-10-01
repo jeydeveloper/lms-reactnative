@@ -42,7 +42,7 @@ export default StyleSheet.create({
         height: Utils.scaleWithPixel(150)
     },
     myAssignmentItem: {
-        width: Utils.scaleWithPixel(280)
+        width: Utils.scaleWithPixel(300)
     },
     blockView: {
         paddingVertical: 10
