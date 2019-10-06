@@ -15,11 +15,6 @@ import styles from "./styles";
 // Load sample data
 import { ReviewData } from "@data";
 
-import {
-  SelectMultipleButton,
-  SelectMultipleGroupButton
-} from "react-native-selectmultiple-button";
-
 export default class PostTest extends Component {
     constructor(props) {
         super(props);
@@ -61,10 +56,10 @@ export default class PostTest extends Component {
                 />
                 <ScrollView>
                     <FlatList
-                        style={{ paddingHorizontal: 20 }}
+                        style={{ paddingHorizontal: 20, width: "100%" }}
                         data={reviewList}
                         keyExtractor={(item, index) => item.id}
-                        renderItem={({ item }) => (
+                        renderItem={({ item, index }) => (
                             <CommentItem
                                 style={{ marginTop: 10 }}
                                 image={item.source}
@@ -73,25 +68,9 @@ export default class PostTest extends Component {
                                 date={item.date}
                                 title={item.title}
                                 comment={item.comment}
+                                no={(index + 1)}
                             />
                         )}
-                    />
-
-                    <SelectMultipleGroupButton
-                      multiple={true}
-                      group={[
-                        { value: 'XC40, this is one of car series' },
-                        { value: 'XC60 is a Sports Utility Vehicle' },
-                        { value: 'XC90 is a large SUV' },
-                        { value: 'S90 is a business car' }]}
-                      defaultSelectedIndexes={[0]}
-                      textStyle={{ fontSize: 18 }}
-                      buttonViewStyle={{ alignItems: 'flex-start', borderWidth: 0, margin: 0, borderRadius: 0 }}
-                      highLightStyle={{
-                        borderColor: 'transparent', textColor: 'green', backgroundColor: 'transparent',
-                        borderTintColor: 'transparent', textTintColor: 'white', backgroundTintColor: 'green'
-                      }}
-                      containerViewStyle={{ flexDirection: 'column', height:150, justifyContent:'space-between'}}
                     />
 
                     <View style={{

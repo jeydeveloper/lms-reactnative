@@ -5,50 +5,44 @@ import { Text, Image, StarRating } from "@components";
 import PropTypes from "prop-types";
 import styles from "./styles";
 import * as Utils from "@utils";
+import {
+  SelectMultipleButton,
+  SelectMultipleGroupButton
+} from "react-native-selectmultiple-button";
 
 export default class CommentItem extends Component {
     render() {
-        const { style, image, name, rate, date, title, comment } = this.props;
+        const { style, image, name, rate, date, title, comment, no } = this.props;
         return (
             <View style={[styles.contain, style]}>
-                <View style={{ flexDirection: "row", marginBottom: 10 }}>
-                    <View style={styles.contentLeft}>
-                        <Image source={image} style={styles.thumb} />
-                        <View>
-                            <Text headline semibold numberOfLines={1}>
-                                {name}
-                            </Text>
-                            <View style={styles.contentRate}>
-                                <StarRating
-                                    disabled={true}
-                                    starSize={14}
-                                    maxStars={5}
-                                    rating={rate}
-                                    selectedStar={rating => {}}
-                                    fullStarColor={BaseColor.yellowColor}
-                                />
-                            </View>
-                        </View>
+                <View style={{flex: 1, flexDirection: 'row'}}>
+                    <View style={{marginRight: 10}}>
+                        <Text subhead semibold>
+                            {no}.
+                        </Text>
                     </View>
-                    <View style={styles.contentRight}>
-                        <Text caption2 grayColor numberOfLines={1}>
-                            {date}
+                    <View>
+                        <Text subhead semibold>
+                            {title}
                         </Text>
                     </View>
                 </View>
-                <View>
-                    <Text subhead semibold>
-                        {title}
-                    </Text>
-                    <Text
-                        body2
-                        grayColor
-                        style={{
-                            marginTop: 10
-                        }}
-                    >
-                        {comment}
-                    </Text>
+                <View style={{marginTop: 10}}>
+                    <SelectMultipleGroupButton
+                      multiple={false}
+                      group={[
+                        { value: 'XC40, this is one of car series XC90 is a large SUV S90 is' },
+                        { value: 'XC60 is a Sports Utility Vehicle' },
+                        { value: 'XC90 is a large SUV' },
+                        { value: 'S90 is a business car' }]}
+                      textStyle={{ fontSize: 15, textAlign: 'left' }}
+                      buttonViewStyle={{ alignItems: 'flex-start', borderWidth: 0, margin: 0, borderRadius: 0, width: "100%" }}
+                      highLightStyle={{
+                        borderColor: 'transparent', textColor: BaseColor.primaryColor, backgroundColor: 'transparent',
+                        borderTintColor: 'transparent', textTintColor: 'white', backgroundTintColor: BaseColor.primaryColor
+                      }}
+                      containerViewStyle={{ flexDirection: 'column', height:150, justifyContent:'space-between'}}
+                    />
                 </View>
             </View>
         );
@@ -62,7 +56,8 @@ CommentItem.propTypes = {
     rate: PropTypes.number,
     date: PropTypes.string,
     title: PropTypes.string,
-    comment: PropTypes.string
+    comment: PropTypes.string,
+    no: PropTypes.number
 };
 
 CommentItem.defaultProps = {
@@ -72,5 +67,6 @@ CommentItem.defaultProps = {
     rate: 0,
     date: "",
     title: "",
-    comment: ""
+    comment: "",
+    no: 0
 };
