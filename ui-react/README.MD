@@ -67,3 +67,9 @@ on mac : export JAVA_OPTS='-XX:+IgnoreUnrecognizedVMOptions --add-modules java.s
 
 6. react-native run-ios
 
+react-native link react-native-youtube
+
+Create new react-native :
+react-native init netpolitan_apps_lms --version 0.60.4
+
+

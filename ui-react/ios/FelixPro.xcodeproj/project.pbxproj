@@ -5,6 +5,7 @@
 	};
 	objectVersion = 48;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		024BF34A756F44B0B98C317F /* Raleway-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34E0886882084BB3AEF7FBAC /* Raleway-SemiBoldItalic.ttf */; };
 		0E2CCEA5DF5F4AAE9B3ACE1C /* Raleway-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50211F20F6964F17B609E0D7 /* Raleway-Italic.ttf */; };
@@ -28,6 +29,7 @@
 		E29C169157484997A5B73CCE /* Raleway-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8EB1EB066234ACDBC6E3265 /* Raleway-BoldItalic.ttf */; };
 		E2D90BDC2333F4C000DE58E5 /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = E2D90BDB2333F4C000DE58E5 /* main.jsbundle */; };
 		E2D90BE72341253700DE58E5 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = E2D90BE62341253600DE58E5 /* assets */; };
+		E2D90BEE2353332800DE58E5 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB61A68108700A75B9A /* Info.plist */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		EEC01AB7140F48F891E49995 /* Raleway-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A445F0BC14CD4EA6AC5AB64D /* Raleway-MediumItalic.ttf */; };
 		EF614D7B04FE475DB37CB484 /* Raleway-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E30E13C60C84659A3A16415 /* Raleway-BlackItalic.ttf */; };
@@ -350,6 +352,7 @@
 				43DD7BB321B646258CAC50EB /* Raleway-ExtraBoldItalic.ttf in Resources */,
 				5266FA00B91D4F18A3B7EE09 /* Raleway-ExtraLight.ttf in Resources */,
 				F69A5BF0A37B4F75A3D1B7B2 /* Raleway-ExtraLightItalic.ttf in Resources */,
+				E2D90BEE2353332800DE58E5 /* Info.plist in Resources */,
 				0E2CCEA5DF5F4AAE9B3ACE1C /* Raleway-Italic.ttf in Resources */,
 				7952AC310B474DED86F0A25A /* Raleway-Light.ttf in Resources */,
 				E2D90BDC2333F4C000DE58E5 /* main.jsbundle in Resources */,
@@ -392,6 +395,7 @@
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
+				"${PODS_ROOT}/YoutubePlayer-in-WKWebView/WKYTPlayerView/WKYTPlayerView.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -412,6 +416,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/WKYTPlayerView.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

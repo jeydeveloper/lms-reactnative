@@ -15,41 +15,25 @@ import {
 import * as Utils from "@utils";
 import styles from "./styles";
 
+import YouTube from 'react-native-youtube';
+
 export default class PostDetail extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            isReady: '',
+            status: '',
+            quality: '',
+            error: ''
+        };
         this._deltaY = new Animated.Value(0);
     }
 
     render() {
-        const heightHeader = Utils.heightHeader();
-        const heightImageBanner = Utils.scaleWithPixel(250);
-        const marginTopBanner = heightImageBanner - heightHeader - 30;
         const { navigation } = this.props;
 
         return (
             <View style={{ flex: 1 }}>
-                <Animated.Image
-                    source={Images.room8}
-                    style={[
-                        styles.imgBanner,
-                        {
-                            height: this._deltaY.interpolate({
-                                inputRange: [
-                                    0,
-                                    Utils.scaleWithPixel(195),
-                                    Utils.scaleWithPixel(195)
-                                ],
-                                outputRange: [
-                                    heightImageBanner,
-                                    heightHeader,
-                                    heightHeader
-                                ]
-                            })
-                        }
-                    ]}
-                />
                 <SafeAreaView
                     style={BaseStyle.safeAreaView}
                     forceInset={{ top: "always" }}
@@ -80,31 +64,23 @@ export default class PostDetail extends Component {
                         }}
                         onPressRight={() => { }}
                     />
-                    <ScrollView
-                        onScroll={Animated.event([
-                            {
-                                nativeEvent: {
-                                    contentOffset: { y: this._deltaY }
-                                }
-                            }
-                        ])}
-                        scrollEventThrottle={8}
-                    >
+                    <ScrollView>
                         <View
                             style={{
                                 paddingHorizontal: 20,
                                 marginBottom: 20,
-                                marginTop: marginTopBanner
+                                marginTop: 10
                             }}
                         >
-                            <Text
-                                headline
-                                semibold
-                                whiteColor
-                                numberOfLines={1}
-                            >
-                                
-                            </Text>
+                            <YouTube
+                              videoId="ya7g6eoNmS8"
+                              apiKey="AIzaSyAxy1-3hfh4-E8ghuQ5RvgzG8rkYcedOyM"
+                              onReady={e => this.setState({ isReady: true })}
+                              onChangeState={e => this.setState({ status: e.state })}
+                              onChangeQuality={e => this.setState({ quality: e.quality })}
+                              onError={e => this.setState({ error: e.error })}
+                              style={{ alignSelf: 'stretch', height: 300 }}
+                            />
                             <View
                                 style={{
                                     flexDirection: "row",
