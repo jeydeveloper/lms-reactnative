@@ -5,18 +5,41 @@ const jwt = require('jsonwebtoken');
 const { Schema } = mongoose;
 
 const UsersSchema = new Schema({
-  firstname: String,
-  lastname: String,
-  loginname: String,
-  role: String,
+  fullname: String,
+  username: String,
   status: String,
   email: String,
   attribute: {
     type: Map,
     of: String
   },
+  roles: [Number],
+  pic: String,
+  occupation: String,
+  companyName: String,
+  phone: String,
+  address: {
+    addressLine: String,
+    city: String,
+    state: String,
+    postCode: Number
+  },
+  socialNetworks: {
+    linkedIn: String,
+    facebook: String,
+    twitter: String,
+    instagram: String
+  },
   hash: String,
   salt: String,
+  created_at: Date,
+  updated_at: Date
+}, 
+{
+  timestamps: {
+      createdAt: 'created_at',
+      updatedAt: 'updated_at'
+  }
 });
 
 UsersSchema.methods.setPassword = function(password) {
@@ -44,10 +67,9 @@ UsersSchema.methods.generateJWT = function() {
 UsersSchema.methods.toAuthJSON = function() {
   return {
     _id: this._id,
-    firstname: this.firstname,
-    lastname: this.lastname,
-    loginname: this.loginname,
-    role: this.role,
+    fullname: this.fullname,
+    username: this.loginname,
+    roles: this.roles,
     status: this.status,
     attribute: this.attribute,
     email: this.email,

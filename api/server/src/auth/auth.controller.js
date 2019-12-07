@@ -9,7 +9,7 @@ exports.logout = (req, res, next) => {
 
 //Retrieve current user
 exports.current = (req, res, next) => {
-    return res.json({ user: req.user.toAuthJSON() });
+    return res.json(req.user.toAuthJSON());
 };
 
 //Retrieve current user from token
@@ -22,6 +22,6 @@ exports.currentfromtoken = (req, res, next) => {
             return res.sendStatus(400);
           }
 
-          return res.json({ user: user.toAuthJSON() });
+          return res.json(user.toAuthJSON());
         });
 };
