@@ -2,9 +2,9 @@ const Attribute = require('./attribute.model.js');
 
 //Create new Attribute
 exports.create = (req, res, next) => {
-    const { body: { attribute } } = req;
+    const { body } = req;
 
-    if(!attribute.name) {
+    if(!body.name) {
         return res.status(422).json({
           errors: {
             name: 'is required',
@@ -12,10 +12,10 @@ exports.create = (req, res, next) => {
         });
     }
 
-    const finalAttribute = new Attribute(attribute);
+    const finalAttribute = new Attribute(body);
 
     return finalAttribute.save()
-        .then(() => res.json({ attribute: finalAttribute.toJSON() }));
+        .then(() => res.json(finalAttribute.toJSON()));
 };
 
 // Retrieve all attributes from the database.
