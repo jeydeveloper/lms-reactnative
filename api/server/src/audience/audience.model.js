@@ -4,17 +4,19 @@ const { Schema } = mongoose;
 
 const AudiencesSchema = new Schema({
   name: String,
-  filter: {
-    type: Map,
-    of: String
-  }
+  type: {
+    type: String,
+    enum: ['attribute','individual']
+  },
+  value: []
 });
 
 AudiencesSchema.methods.toJSON = function() {
   return {
     _id: this._id,
     name: this.name,
-    filter: this.filter
+    type: this.type,
+    value: this.value
   };
 };
 

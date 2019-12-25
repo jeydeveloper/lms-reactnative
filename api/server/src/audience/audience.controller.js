@@ -2,9 +2,9 @@ const Audience = require('./audience.model.js');
 
 //Create new Audience
 exports.create = (req, res, next) => {
-    const { body: { audience } } = req;
+    const { body } = req;
 
-    if(!audience.name) {
+    if(!body.name) {
         return res.status(422).json({
           errors: {
             name: 'is required',
@@ -12,10 +12,10 @@ exports.create = (req, res, next) => {
         });
     }
 
-    const finalAudience = new Audience(audience);
+    const finalAudience = new Audience(body);
 
     return finalAudience.save()
-        .then(() => res.json({ audience: finalAudience.toJSON() }));
+        .then(() => res.json(finalAudience.toJSON()));
 };
 
 // Retrieve all audiences from the database.
