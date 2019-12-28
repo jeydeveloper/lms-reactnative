@@ -64,6 +64,8 @@ exports.update = (req, res, next) => {
     // Find and update attribute with the request body
     Attribute.findByIdAndUpdate(req.params.attributeId, {
         name: req.body.name, 
+        type: req.body.type, 
+        show_for: req.body.show_for, 
         value: req.body.value
     }, {new: true})
     .then(attribute => {
