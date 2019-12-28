@@ -64,7 +64,8 @@ exports.update = (req, res, next) => {
     // Find and update audience with the request body
     Audience.findByIdAndUpdate(req.params.audienceId, {
         name: req.body.name, 
-        filter: req.body.filter
+        type: req.body.type, 
+        value: req.body.value
     }, {new: true})
     .then(audience => {
         if(!audience) {
