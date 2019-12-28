@@ -9,10 +9,7 @@ const UsersSchema = new Schema({
   username: String,
   status: String,
   email: String,
-  attribute: {
-    type: Map,
-    of: String
-  },
+  attribute: [],
   roles: [Number],
   pic: String,
   occupation: String,
