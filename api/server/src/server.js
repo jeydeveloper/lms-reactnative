@@ -40,6 +40,7 @@ require('./attribute/attribute.routes.js')(app);
 require('./audience/audience.routes.js')(app);
 require('./content/content.routes.js')(app);
 require('./channel/channel.routes.js')(app);
+require('./upload/upload.routes.js')(app);
 
 require('./config/passport.js');
 
