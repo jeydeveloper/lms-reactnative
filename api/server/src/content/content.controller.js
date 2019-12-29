@@ -2,9 +2,9 @@ const Content = require('./content.model.js');
 
 //Create new Content
 exports.create = (req, res, next) => {
-    const { body: { content } } = req;
+    const { body } = req;
 
-    if(!content.title) {
+    if(!body.title) {
         return res.status(422).json({
           errors: {
             title: 'is required',
@@ -12,10 +12,10 @@ exports.create = (req, res, next) => {
         });
     }
 
-    const finalContent = new Content(content);
+    const finalContent = new Content(body);
 
     return finalContent.save()
-        .then(() => res.json({ content: finalContent.toJSON() }))
+        .then(() => res.json(finalContent.toJSON() ))
         .catch(err => {
             if(err.name === 'ValidationError') {
                 return res.status(400).send({
@@ -85,7 +85,8 @@ exports.update = (req, res, next) => {
         created_and_optimize_for: req.body.created_and_optimize_for, 
         expertise_level: req.body.expertise_level, 
         technology_title: req.body.technology_title, 
-        technology_version: req.body.technology_version
+        technology_version: req.body.technology_version,
+        attribute: req.body.attribute
     }, {new: true, runValidators: true})
     .then(content => {
         if(!content) {
