@@ -10,7 +10,8 @@ const ChannelsSchema = new Schema({
   content: [{
   	type: Schema.Types.ObjectId, 
   	ref: 'Contents'
-  }]
+  }],
+  attribute: []
 });
 
 ChannelsSchema.methods.toJSON = function() {
@@ -20,7 +21,8 @@ ChannelsSchema.methods.toJSON = function() {
     description: this.description, 
     image: this.image, 
     subject: this.subject, 
-    content: this.content
+    content: this.content,
+    attribute: this.attribute
   };
 };
 
