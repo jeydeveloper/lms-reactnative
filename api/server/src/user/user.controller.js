@@ -5,18 +5,14 @@ exports.create = (req, res, next) => {
     const { body } = req;
 
     if(!body.email) {
-        return res.status(422).json({
-          errors: {
-            email: 'is required',
-          },
+        return res.status(422).send({
+            message: "Email is required"
         });
     }
 
     if(!body.password) {
-        return res.status(422).json({
-          errors: {
-            password: 'is required',
-          },
+        return res.status(422).send({
+            message: "Password is required"
         });
     }
 
@@ -25,7 +21,12 @@ exports.create = (req, res, next) => {
     finalUser.setPassword(body.password);
 
     return finalUser.save()
-        .then(() => res.json(finalUser.toAuthJSON()));
+        .then(() => res.json(finalUser.toAuthJSON()))
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Something wrong while create data."
+            });
+        });
 };
 
 // Retrieve all users from the database.

@@ -5,10 +5,8 @@ exports.create = (req, res, next) => {
     const { body } = req;
 
     if(!body.title) {
-        return res.status(422).json({
-          errors: {
-            title: 'is required',
-          },
+        return res.status(422).send({
+            message: "Title is required"
         });
     }
 

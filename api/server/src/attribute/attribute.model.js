@@ -10,7 +10,7 @@ const AttributesSchema = new Schema({
   },
   show_for: {
   	type: String,
-  	enum: ['user','content','channel']
+  	enum: ['user','content','channel','event']
   },
   value: [String]
 });

@@ -5,17 +5,20 @@ exports.create = (req, res, next) => {
     const { body } = req;
 
     if(!body.name) {
-        return res.status(422).json({
-          errors: {
-            name: 'is required',
-          },
+        return res.status(422).send({
+            message: "Name is required"
         });
     }
 
     const finalAudience = new Audience(body);
 
     return finalAudience.save()
-        .then(() => res.json(finalAudience.toJSON()));
+        .then(() => res.json(finalAudience.toJSON()))
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Something wrong while create data."
+            });
+        });
 };
 
 // Retrieve all audiences from the database.

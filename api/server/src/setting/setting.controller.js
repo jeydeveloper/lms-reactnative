@@ -5,17 +5,20 @@ exports.create = (req, res, next) => {
     const { body } = req;
 
     if(!body.title) {
-        return res.status(422).json({
-          errors: {
-            title: 'is required',
-          },
+        return res.status(422).send({
+            message: "Title is required"
         });
     }
 
     const finalsetting = new setting(body);
 
     return finalsetting.save()
-        .then(() => res.json(finalsetting.toJSON()));
+        .then(() => res.json(finalsetting.toJSON()))
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Something wrong while create data."
+            });
+        });
 };
 
 // Retrieve all settings from the database.

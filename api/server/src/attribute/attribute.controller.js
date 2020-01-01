@@ -5,17 +5,20 @@ exports.create = (req, res, next) => {
     const { body } = req;
 
     if(!body.name) {
-        return res.status(422).json({
-          errors: {
-            name: 'is required',
-          },
+        return res.status(422).send({
+            message: "Name is required"
         });
     }
 
     const finalAttribute = new Attribute(body);
 
     return finalAttribute.save()
-        .then(() => res.json(finalAttribute.toJSON()));
+        .then(() => res.json(finalAttribute.toJSON()))
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Something wrong while create data."
+            });
+        });
 };
 
 // Retrieve all attributes from the database.
