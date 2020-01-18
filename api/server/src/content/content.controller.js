@@ -2,20 +2,18 @@ const Content = require('./content.model.js');
 
 //Create new Content
 exports.create = (req, res, next) => {
-    const { body: { content } } = req;
+    const { body } = req;
 
-    if(!content.title) {
-        return res.status(422).json({
-          errors: {
-            title: 'is required',
-          },
+    if(!body.title) {
+        return res.status(422).send({
+            message: "Title is required"
         });
     }
 
-    const finalContent = new Content(content);
+    const finalContent = new Content(body);
 
     return finalContent.save()
-        .then(() => res.json({ content: finalContent.toJSON() }))
+        .then(() => res.json(finalContent.toJSON() ))
         .catch(err => {
             if(err.name === 'ValidationError') {
                 return res.status(400).send({
@@ -76,16 +74,17 @@ exports.update = (req, res, next) => {
         title: req.body.title, 
         description: req.body.description, 
         image: req.body.image, 
-        when_content_complete: req.body.when_content_complete, 
-        modality: req.body.modality, 
+        // when_content_complete: req.body.when_content_complete, 
+        // modality: req.body.modality, 
         type: req.body.type, 
         source: req.body.source, 
-        recommended_duration: req.body.recommended_duration, 
-        language: req.body.language, 
-        created_and_optimize_for: req.body.created_and_optimize_for, 
-        expertise_level: req.body.expertise_level, 
-        technology_title: req.body.technology_title, 
-        technology_version: req.body.technology_version
+        // recommended_duration: req.body.recommended_duration, 
+        // language: req.body.language, 
+        // created_and_optimize_for: req.body.created_and_optimize_for, 
+        // expertise_level: req.body.expertise_level, 
+        // technology_title: req.body.technology_title, 
+        // technology_version: req.body.technology_version,
+        attribute: req.body.attribute
     }, {new: true, runValidators: true})
     .then(content => {
         if(!content) {

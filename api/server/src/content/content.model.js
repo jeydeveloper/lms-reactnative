@@ -49,7 +49,8 @@ const ContentsSchema = new Schema({
   	enum: ['Everyone','Beginner','Intermediate','Expert']
   },
   technology_title: String,
-  technology_version: String
+  technology_version: String,
+  attribute: []
 });
 
 ContentsSchema.methods.toJSON = function() {
@@ -58,16 +59,17 @@ ContentsSchema.methods.toJSON = function() {
     title: this.title,
     description: this.description,
     image: this.image,
-    when_content_complete: this.when_content_complete,
-    modality: this.modality,
+    // when_content_complete: this.when_content_complete,
+    // modality: this.modality,
     type: this.type,
     source: this.source,
-    recommended_duration: this.recommended_duration,
-    language: this.language,
-    created_and_optimize_for: this.created_and_optimize_for,
-    expertise_level: this.expertise_level,
-    technology_title: this.technology_title,
-    technology_version: this.technology_version
+    // recommended_duration: this.recommended_duration,
+    // language: this.language,
+    // created_and_optimize_for: this.created_and_optimize_for,
+    // expertise_level: this.expertise_level,
+    // technology_title: this.technology_title,
+    // technology_version: this.technology_version,
+    attribute: this.attribute
   };
 };
 

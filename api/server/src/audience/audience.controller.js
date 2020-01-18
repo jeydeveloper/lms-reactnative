@@ -2,20 +2,23 @@ const Audience = require('./audience.model.js');
 
 //Create new Audience
 exports.create = (req, res, next) => {
-    const { body: { audience } } = req;
+    const { body } = req;
 
-    if(!audience.name) {
-        return res.status(422).json({
-          errors: {
-            name: 'is required',
-          },
+    if(!body.name) {
+        return res.status(422).send({
+            message: "Name is required"
         });
     }
 
-    const finalAudience = new Audience(audience);
+    const finalAudience = new Audience(body);
 
     return finalAudience.save()
-        .then(() => res.json({ audience: finalAudience.toJSON() }));
+        .then(() => res.json(finalAudience.toJSON()))
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Something wrong while create data."
+            });
+        });
 };
 
 // Retrieve all audiences from the database.
@@ -64,7 +67,8 @@ exports.update = (req, res, next) => {
     // Find and update audience with the request body
     Audience.findByIdAndUpdate(req.params.audienceId, {
         name: req.body.name, 
-        filter: req.body.filter
+        type: req.body.type, 
+        value: req.body.value
     }, {new: true})
     .then(audience => {
         if(!audience) {

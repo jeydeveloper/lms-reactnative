@@ -2,20 +2,18 @@ const Channel = require('./channel.model.js');
 
 //Create new Channel
 exports.create = (req, res, next) => {
-    const { body: { channel } } = req;
+    const { body } = req;
 
-    if(!channel.title) {
-        return res.status(422).json({
-          errors: {
-            title: 'is required',
-          },
+    if(!body.title) {
+        return res.status(422).send({
+            message: "Title is required"
         });
     }
 
-    const finalChannel = new Channel(channel);
+    const finalChannel = new Channel(body);
 
     return finalChannel.save()
-        .then(() => res.json({ channel: finalChannel.toJSON() }))
+        .then(() => res.json(finalChannel.toJSON() ))
         .catch(err => {
             if(err.name === 'ValidationError') {
                 return res.status(400).send({
@@ -76,8 +74,9 @@ exports.update = (req, res, next) => {
         title: req.body.title, 
         description: req.body.description, 
         image: req.body.image, 
-        subject: req.body.subject, 
-        content: req.body.content
+        // subject: req.body.subject, 
+        content: req.body.content,
+        attribute: req.body.attribute
     }, {new: true})
     .then(channel => {
         if(!channel) {

@@ -2,30 +2,31 @@ const User = require('./user.model.js');
 
 //Create new User
 exports.create = (req, res, next) => {
-    const { body: { user } } = req;
+    const { body } = req;
 
-    if(!user.email) {
-        return res.status(422).json({
-          errors: {
-            email: 'is required',
-          },
+    if(!body.email) {
+        return res.status(422).send({
+            message: "Email is required"
         });
     }
 
-    if(!user.password) {
-        return res.status(422).json({
-          errors: {
-            password: 'is required',
-          },
+    if(!body.password) {
+        return res.status(422).send({
+            message: "Password is required"
         });
     }
 
-    const finalUser = new User(user);
+    const finalUser = new User(body);
 
-    finalUser.setPassword(user.password);
+    finalUser.setPassword(body.password);
 
     return finalUser.save()
-        .then(() => res.json({ user: finalUser.toAuthJSON() }));
+        .then(() => res.json(finalUser.toAuthJSON()))
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Something wrong while create data."
+            });
+        });
 };
 
 // Retrieve all users from the database.
@@ -73,10 +74,9 @@ exports.update = (req, res, next) => {
 
     // Find and update user with the request body
     User.findByIdAndUpdate(req.params.userId, {
-        firstname: req.body.firstname, 
-        lastname: req.body.lastname, 
-        loginname: req.body.loginname, 
-        role: req.body.role || "No Role", 
+        fullname: req.body.fullname, 
+        username: req.body.username, 
+        roles: req.body.roles, 
         status: req.body.status, 
         email: req.body.email, 
         attribute: req.body.attribute

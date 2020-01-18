@@ -2,20 +2,23 @@ const Attribute = require('./attribute.model.js');
 
 //Create new Attribute
 exports.create = (req, res, next) => {
-    const { body: { attribute } } = req;
+    const { body } = req;
 
-    if(!attribute.name) {
-        return res.status(422).json({
-          errors: {
-            name: 'is required',
-          },
+    if(!body.name) {
+        return res.status(422).send({
+            message: "Name is required"
         });
     }
 
-    const finalAttribute = new Attribute(attribute);
+    const finalAttribute = new Attribute(body);
 
     return finalAttribute.save()
-        .then(() => res.json({ attribute: finalAttribute.toJSON() }));
+        .then(() => res.json(finalAttribute.toJSON()))
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Something wrong while create data."
+            });
+        });
 };
 
 // Retrieve all attributes from the database.
@@ -64,6 +67,8 @@ exports.update = (req, res, next) => {
     // Find and update attribute with the request body
     Attribute.findByIdAndUpdate(req.params.attributeId, {
         name: req.body.name, 
+        type: req.body.type, 
+        show_for: req.body.show_for, 
         value: req.body.value
     }, {new: true})
     .then(attribute => {
