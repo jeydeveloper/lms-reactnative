@@ -8,10 +8,11 @@ const AttributesSchema = new Schema({
   	type: String,
   	enum: ['text','multiselect','date','list']
   },
-  show_for: {
-  	type: String,
-  	enum: ['user','content','channel','event']
-  },
+  mandatory: { type: Boolean, default: false },
+  show_for_user: { type: Boolean, default: false },
+  show_for_content: { type: Boolean, default: false },
+  show_for_channel: { type: Boolean, default: false },
+  show_for_event: { type: Boolean, default: false },
   value: [String]
 });
 
@@ -20,7 +21,11 @@ AttributesSchema.methods.toJSON = function() {
     _id: this._id,
     name: this.name,
     type: this.type,
-    show_for: this.show_for,
+    mandatory: this.mandatory,
+    show_for_user: this.show_for_user,
+    show_for_content: this.show_for_content,
+    show_for_channel: this.show_for_channel,
+    show_for_event: this.show_for_event,
     value: this.value
   };
 };

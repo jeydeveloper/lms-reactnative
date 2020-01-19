@@ -67,7 +67,10 @@ exports.update = (req, res, next) => {
     // Find and update setting with the request body
     setting.findByIdAndUpdate(req.params.settingId, {
         title: req.body.title, 
-        image: req.body.image
+        image: req.body.image,
+        remember_me_timeout: req.body.remember_me_timeout,
+        show_error_forget_password: req.body.show_error_forget_password,
+        show_content_only_on_apps: req.body.show_content_only_on_apps
     }, {new: true})
     .then(setting => {
         if(!setting) {

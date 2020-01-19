@@ -68,7 +68,11 @@ exports.update = (req, res, next) => {
     Attribute.findByIdAndUpdate(req.params.attributeId, {
         name: req.body.name, 
         type: req.body.type, 
-        show_for: req.body.show_for, 
+        mandatory: req.body.mandatory, 
+        show_for_user: req.body.show_for_user, 
+        show_for_content: req.body.show_for_content, 
+        show_for_channel: req.body.show_for_channel, 
+        show_for_event: req.body.show_for_event, 
         value: req.body.value
     }, {new: true})
     .then(attribute => {
