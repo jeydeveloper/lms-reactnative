@@ -75,7 +75,7 @@ exports.update = (req, res, next) => {
         description: req.body.description, 
         image: req.body.image, 
         // when_content_complete: req.body.when_content_complete, 
-        // modality: req.body.modality, 
+        modality: req.body.modality, 
         type: req.body.type, 
         source: req.body.source, 
         // recommended_duration: req.body.recommended_duration, 

@@ -12,11 +12,11 @@ const ContentsSchema = new Schema({
   },
   modality: {
   	type: String,
-  	enum: ['Watch','Read','Listen','Practice']
+  	enum: ['Play','Read','Listen','Learn','Watch']
   },
   type: {
   	type: String,
-  	enum: ['Audio Summary','Book','Book Summary','Course','Document','HTMLResource','Podcast','Presentation','Video']
+  	enum: ['SCORM asset','Interactive Module','Video','Game','eBook','Audio / Podcast']
   },
   source: String,
   recommended_duration: {
@@ -60,7 +60,7 @@ ContentsSchema.methods.toJSON = function() {
     description: this.description,
     image: this.image,
     // when_content_complete: this.when_content_complete,
-    // modality: this.modality,
+    modality: this.modality,
     type: this.type,
     source: this.source,
     // recommended_duration: this.recommended_duration,

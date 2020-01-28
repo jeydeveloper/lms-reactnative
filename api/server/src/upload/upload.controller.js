@@ -25,10 +25,11 @@ exports.create = (req, res, next) => {
         if (req.file) {
             let filepath = path.join(req.file.destination, req.file.filename);
             let unzipper = new Unzipper(filepath);
+            let extension = (req.file.filename).split(".")[1];
             unzipper.on("extract", function () {
                 console.log("Finished extracting");
             });
-            unzipper.extract({ path: "/app/server/src/public/upload_content"});
+            unzipper.extract({ path: "/app/server/src/public/upload_content"+(extension === "zip" ? "/zip" : "")});
         }
         return res.status(200).send(req.file)
     })
