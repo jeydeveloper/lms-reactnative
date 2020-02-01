@@ -74,4 +74,11 @@ UsersSchema.methods.toAuthJSON = function() {
   };
 };
 
+UsersSchema.methods.getPassword = function() {
+  return {
+    salt: this.salt,
+    hash: this.hash,
+  };
+};
+
 module.exports = mongoose.model('Users', UsersSchema);
