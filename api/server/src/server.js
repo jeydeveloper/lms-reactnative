@@ -44,6 +44,7 @@ require('./upload/upload.routes.js')(app);
 require('./setting/setting.routes.js')(app);
 require('./event/event.routes.js')(app);
 require('./questioner/questioner.routes.js')(app);
+require('./company/company.routes.js')(app);
 
 require('./config/passport.js');
 
