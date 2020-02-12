@@ -46,6 +46,7 @@ require('./event/event.routes.js')(app);
 require('./questioner/questioner.routes.js')(app);
 require('./company/company.routes.js')(app);
 require('./category/category.routes.js')(app);
+require('./assignment/assignment.routes.js')(app);
 
 require('./config/passport.js');
 
