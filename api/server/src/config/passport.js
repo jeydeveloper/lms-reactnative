@@ -7,11 +7,12 @@ const Users = mongoose.model('Users');
 passport.use(new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
-}, (email, password, done) => {
+  passReqToCallback: true
+}, (req, email, password, done) => {
   Users.findOne({ email })
     .then((user) => {
-      if(!user || !user.validatePassword(password)) {
-        return done(null, false, { errors: { 'email or password': 'is invalid' } });
+      if(!user || !user.validatePassword(password) || !user.validateDomain(req.body.domain)) {
+        return done(null, false, { errors: { 'email or password or domain': 'is invalid' } });
       }
 
       return done(null, user);

@@ -72,14 +72,7 @@ exports.update = (req, res, next) => {
         });
     }
 
-    let data = {
-        fullname: req.body.fullname,
-        username: req.body.username,
-        roles: req.body.roles,
-        status: req.body.status,
-        email: req.body.email,
-        attribute: req.body.attribute
-    }
+    let data = req.body;
 
     if (req.body.password) {
         const finalUser = new User(req.body);
